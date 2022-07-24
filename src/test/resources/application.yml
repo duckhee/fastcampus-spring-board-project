@@ -21,24 +21,24 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
-    #    defer-datasource-initialization: true # test data insert
+#    defer-datasource-initialization: true # test data insert
     properties:
       hibernate: # hibernate setting
         format_sql: true
         default_batch_fetch_size: 100 # change IN query
-  #        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+#        dialect: org.hibernate.dialect.MySQLInnoDBDialect
   h2:
     console:
       enabled: true
-  sql:
-    init:
-      mode: always
-  #      schema-locations: classpath:/../../../sql
+#  sql:
+#    init:
+#      schema-locations: classpath:/../../../sql
+#      mode: always
   thymeleaf:
     cache: true
 
 ---
-# sub profile
+  # sub profile
 spring:
   config:
     activate:
