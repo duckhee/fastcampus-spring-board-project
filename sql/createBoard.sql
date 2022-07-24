@@ -9,7 +9,7 @@
 -- show grant for 'fastCampus'@'%';
 
 --     생성한 사용자 권한 모든 부여
--- grant all privileges `fastcampusBoardProject`.* to 'fastCampus'@'%' with grant option;
+-- grant all privileges on `fastcampusBoardProject`.* to 'fastCampus'@'%' with grant option;
 
 -- 권한 부여 적용
 -- flush privileges;
