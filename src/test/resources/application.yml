@@ -36,7 +36,10 @@ spring:
 #      mode: always
   thymeleaf:
     cache: true
-
+  data:
+    rest:
+      base-path: /api # spring data rest setting path
+      detection-strategy: annotated
 ---
   # sub profile
 spring:
