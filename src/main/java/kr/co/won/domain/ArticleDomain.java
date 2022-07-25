@@ -24,9 +24,9 @@ import java.util.Set;
         @Index(columnList = "created_at"),
         @Index(columnList = "created_by")
 })
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class ArticleDomain implements Serializable {
+public class ArticleDomain extends AuditingFields implements Serializable  {
 
     protected ArticleDomain() {
     }
@@ -61,7 +61,7 @@ public class ArticleDomain implements Serializable {
     @ToString.Exclude // ToString 제외
     @OneToMany(mappedBy = "article", cascade = {CascadeType.ALL})
     private final Set<ArticleCommentDomain> articleComments = new LinkedHashSet<>();
-
+/*
     @CreatedDate
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt; // 생성 일시
@@ -77,6 +77,7 @@ public class ArticleDomain implements Serializable {
     @LastModifiedBy
     @Column(name = "updated_by", nullable = false, length = 100)
     private String updatedBy; // 수정자
+    */
 
     /**
      * Article Domain Function

@@ -22,9 +22,9 @@ import java.util.Objects;
         @Index(columnList = "created_at"),
         @Index(columnList = "created_by")
 })
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class ArticleCommentDomain implements Serializable {
+public class ArticleCommentDomain extends AuditingFields implements Serializable {
 
     protected ArticleCommentDomain() {
     }
@@ -45,29 +45,30 @@ public class ArticleCommentDomain implements Serializable {
 
     @Setter
     @ManyToOne(optional = false)
-    @JoinColumn(name = "article_id",  nullable = false)
+    @JoinColumn(name = "article_id", nullable = false)
     private ArticleDomain article; // 게시글 아이디
 
     @Setter
     @Column(nullable = false, length = 500)
     private String content; // 댓글 본문
 
-    @CreatedDate
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt; // 생성 일자
+    /*
+        @CreatedDate
+        @Column(name = "created_at", nullable = false)
+        private LocalDateTime createdAt; // 생성 일자
 
-    @CreatedBy
-    @Column(name = "created_by", nullable = false, length = 100)
-    private String createdBy; // 생성한 사람
+        @CreatedBy
+        @Column(name = "created_by", nullable = false, length = 100)
+        private String createdBy; // 생성한 사람
 
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime updatedAt; // 수정 일자
+        @LastModifiedDate
+        @Column(nullable = false)
+        private LocalDateTime updatedAt; // 수정 일자
 
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String updatedBy; // 수정한 사람
-
+        @LastModifiedBy
+        @Column(nullable = false, length = 100)
+        private String updatedBy; // 수정한 사람
+    */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
