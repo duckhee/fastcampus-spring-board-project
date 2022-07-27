@@ -5,11 +5,20 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+
+### JAVA VERSION INFORMATION ###
+.java-version
+
+### QueryDSL QCLASS ###
+src/main/generated
+src/main/generated/
+
+
 ### STS ###
 .apt_generated
 .classpath
 .factorypath
-.project
+.project 
 .settings
 .springBeans
 .sts4-cache
