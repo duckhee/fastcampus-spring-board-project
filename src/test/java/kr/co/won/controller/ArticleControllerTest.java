@@ -15,7 +15,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * controller unit test
  */
 @DisplayName(value = "Board View Tests")
-@WebMvcTest
+@WebMvcTest(controllers = {
+        ArticleController.class // 이렇게 설정을 하면, 특정 controller 만 테스트가 가능하다.
+})
 class ArticleControllerTest {
 
     private final MockMvc mockMvc;
