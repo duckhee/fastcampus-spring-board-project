@@ -45,16 +45,16 @@ public class DataRestTests {
     void givenNothing_whenRequestingArticle_thenReturnArticleRepository() throws Exception {
         mockMvc.perform(get("/api/articleDomains/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.valueOf("application/hal+json")))
+                .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
 
     }
 
     @DisplayName(value = "[API] 게시글 -> 댓글 리스트 조회")
     @Test
-    void givenNothing_whenRequestingArticle_thenReturnArticleRepository() throws Exception {
+    void givenNothing_whenRequestingArticleReply_thenReturnArticleRepository() throws Exception {
         mockMvc.perform(get("/api/articleDomains/1/articleCommentDomains"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.valueOf("application/hal+json")))
+                .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
 
     }
 
@@ -64,8 +64,7 @@ public class DataRestTests {
     void givenNothing_whenArticleDomain_thenReturnArticleRepository() throws Exception {
         mockMvc.perform(get("/api/articleCommentDomains/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.valueOf("application/hal+json")))
-
+                .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
     }
 
 }
