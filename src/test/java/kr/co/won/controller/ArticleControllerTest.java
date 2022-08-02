@@ -1,5 +1,6 @@
 package kr.co.won.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ class ArticleControllerTest {
         this.mockMvc = mockMvc;
     }
 
+    @Disabled(value = "develop")
     @DisplayName(value = "[view][GET] article list")
     @Test
     void givenNothing_whenRequestingArticlesView_thenReturnArticlesView() throws Exception {
@@ -36,23 +38,29 @@ class ArticleControllerTest {
         mockMvc.perform(get("/articles"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
-                .andExpect(model().attributeExists("articles"));
+                .andExpect(model().attributeExists("articles"))
+                .andExpect(view().name("articles/index "));
     }
 
+    @Disabled(value = "develop")
     @DisplayName(value = "article detail Tests")
     @Test
     void boardDetailViewTests() throws Exception {
         mockMvc.perform(get("/articles/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.TEXT_HTML))
-                .andExpect(model().attributeExists("article"));
+                .andExpect(view().name("articles/detail"))
+                .andExpect(model().attributeExists("article"))
+                .andExpect(model().attributeExists("articleComments"));
     }
 
+    @Disabled(value = "develop")
     @DisplayName(value = "article search Test")
     @Test
     void boardSearchTests() throws Exception {
         mockMvc.perform(get("/article/search"))
                 .andExpect(status().isOk())
+                .andExpect(view().name("articles/search"))
                 .andExpect(content().contentType(MediaType.TEXT_HTML));
     }
 
@@ -61,7 +69,8 @@ class ArticleControllerTest {
     void boardSearchHashTagTests() throws Exception {
         mockMvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML));
+                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/search-hashtag"));
     }
 
 }
