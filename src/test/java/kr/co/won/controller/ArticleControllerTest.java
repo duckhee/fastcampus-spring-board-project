@@ -64,6 +64,9 @@ class ArticleControllerTest {
                 .andExpect(content().contentType(MediaType.TEXT_HTML));
     }
 
+
+    @Disabled(value = "develop")
+
     @DisplayName(value = "article hash tag search Tests")
     @Test
     void boardSearchHashTagTests() throws Exception {
