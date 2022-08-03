@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
 @DisplayName(value = "JPA Connect Tests")
 @Import(value = {
         JPAConfiguration.class
@@ -44,11 +45,11 @@ class JpaRepositoryTest {
 
         // When
         List<ArticleDomain> articles = articleRepository.findAll();
-
+        System.out.println("get size :: "+articles.size());
         // Then
         Assertions.assertThat(articles)
                 .isNotNull()
-                .hasSize(0);
+                .hasSize(123);
     }
 
 

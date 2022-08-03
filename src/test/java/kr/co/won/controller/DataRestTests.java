@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DisplayName(value = "Data REST TEST")
 @Transactional
-
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 @AutoConfigureMockMvc
 @SpringBootTest
 public class DataRestTests {
@@ -52,7 +53,7 @@ public class DataRestTests {
     @DisplayName(value = "[API] 게시글 -> 댓글 리스트 조회")
     @Test
     void givenNothing_whenRequestingArticleReply_thenReturnArticleRepository() throws Exception {
-        mockMvc.perform(get("/api/articleDomains/1/articleCommentDomains"))
+        mockMvc.perform(get("/api/articleDomains/1/articleComments"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("application/hal+json")));
 
