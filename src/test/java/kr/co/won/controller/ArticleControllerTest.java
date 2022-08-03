@@ -28,7 +28,7 @@ class ArticleControllerTest {
         this.mockMvc = mockMvc;
     }
 
-    @Disabled(value = "develop")
+    //    @Disabled(value = "develop")
     @DisplayName(value = "[view][GET] article list")
     @Test
     void givenNothing_whenRequestingArticlesView_thenReturnArticlesView() throws Exception {
@@ -37,9 +37,9 @@ class ArticleControllerTest {
         // when & Then
         mockMvc.perform(get("/articles"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML)) // 호환되는 타입을 맞다고 해준다. options 이 맞지 않아도된다.
                 .andExpect(model().attributeExists("articles"))
-                .andExpect(view().name("articles/index "));
+                .andExpect(view().name("articles/index"));
     }
 
     @Disabled(value = "develop")
@@ -48,7 +48,7 @@ class ArticleControllerTest {
     void boardDetailViewTests() throws Exception {
         mockMvc.perform(get("/articles/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/detail"))
                 .andExpect(model().attributeExists("article"))
                 .andExpect(model().attributeExists("articleComments"));
@@ -61,7 +61,7 @@ class ArticleControllerTest {
         mockMvc.perform(get("/article/search"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("articles/search"))
-                .andExpect(content().contentType(MediaType.TEXT_HTML));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
     }
 
 
@@ -72,7 +72,7 @@ class ArticleControllerTest {
     void boardSearchHashTagTests() throws Exception {
         mockMvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/search-hashtag"));
     }
 
