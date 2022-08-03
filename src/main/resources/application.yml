@@ -16,14 +16,14 @@ spring:
       base-path: /api # spring data rest setting path
       detection-strategy: annotated
   datasource:
-#    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:mem:testDB
-#    username: sa
-#    password:
-    url: jdbc:mysql://localhost:3306/fastCampusBoardProject
-    username: fastCampus
-    password: 12341234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testDB
+    username: sa
+    password:
+#    url: jdbc:mysql://localhost:3306/fastCampusBoardProject
+#    username: fastCampus
+#    password: 12341234
+#    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
     hibernate:
