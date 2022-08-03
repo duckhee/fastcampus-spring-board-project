@@ -12,28 +12,33 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/fastCampusBoardProject
-    username: fastCampus
-    password: 12341234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:mysql://localhost:3306/fastCampusBoardProject
+    #    username: root
+    #    password: won1228
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    url: jdbc:h2:mem:board;mode=mysql
+    driver-class-name: org.h2.Driver
+    username: sa
+
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: create
     show-sql: true
-#    defer-datasource-initialization: true # test data insert
+    defer-datasource-initialization: true # test data insert
     properties:
       hibernate: # hibernate setting
         format_sql: true
         default_batch_fetch_size: 100 # change IN query
-#        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+  #        dialect: org.hibernate.dialect.MySQLInnoDBDialect
   h2:
     console:
       enabled: true
-#  sql:
-#    init:
-#      schema-locations: classpath:/../../../sql
-#      mode: always
+  sql:
+    init:
+      mode: ALWAYS
+  #      schema-locations: classpath:/../../../sql
   thymeleaf:
     cache: true
   data:
@@ -41,7 +46,7 @@ spring:
       base-path: /api # spring data rest setting path
       detection-strategy: annotated
 ---
-  # sub profile
+# sub profile
 spring:
   config:
     activate:
