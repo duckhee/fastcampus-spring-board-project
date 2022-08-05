@@ -41,6 +41,8 @@ spring:
   #      schema-locations: classpath:/../../../sql
   thymeleaf:
     cache: true
+  thymeleaf3:
+    decoupled-logic: true
   data:
     rest:
       base-path: /api # spring data rest setting path
