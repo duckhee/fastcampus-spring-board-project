@@ -42,7 +42,7 @@ class ArticleControllerTest {
                 .andExpect(view().name("articles/index"));
     }
 
-    @Disabled(value = "develop")
+    
     @DisplayName(value = "article detail Tests")
     @Test
     void boardDetailViewTests() throws Exception {
