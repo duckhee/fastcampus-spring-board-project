@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @ToString
 @EntityListeners(AuditingEntityListener.class) // 자동으로 생성을 해주기 위한 설정
 @MappedSuperclass
-public class AuditingFields {
+public abstract class AuditingFields {
 
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
