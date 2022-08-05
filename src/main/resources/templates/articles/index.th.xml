@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<thlogic>
+    <attr sel="#header" th:replace="fragments/header::header"/>
+    <attr sel="#footer" th:replace="fragments/footer::footer"/>
+</thlogic>
+
+        <!--decoupling logic-->

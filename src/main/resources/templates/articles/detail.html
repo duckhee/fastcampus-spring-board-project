@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--<html lang="ko" xmlns:th="https://www.thymeleaf.org">-->
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 페이지</title>
+</head>
+<body>
+<!--<header th:replace="~{fragments/header::header}">-->
+<header id="header">
+
+</header>
+<!--./header-->
+<main>
+    <header id="main-header">
+        <h1>첫번째 글</h1>
+    </header>
+    <!--./main-header-->
+    <aside>
+        <p><span>DoukHee</span></p>
+        <p><a rel="me" href="mailto:doukhee@co.kr">doukhee@co.kr</a></p>
+        <p>
+            <time datetime="2022-01-01T00:00:00">2022-0101</time>
+        </p>
+        <p>#java</p>
+    </aside>
+    <!--./aside-->
+    <section>
+        <p>본문</br><br></p>
+        <div>
+            <form>
+                <label for="articleComment" hidden>댓글</label>
+                <textarea id="articleComment" placeholder="댓글 쓰기..." rows="3"></textarea>
+                <button type="submit">쓰기</button>
+            </form>
+            <!--./form-->
+            <ul>
+                <li>
+                    <div>
+                        <time><small>2022-01-01</small></time>
+                        <strong>DoukHee</strong>
+                        <p>
+                            Lorem ipsum dolor sit amet, casiodfjcas
+                            Lorem ipsum dolor sit amet, casiodfjcas
+                        </p>
+                    </div>
+                    <!--./div-->
+                </li>
+                <!--./li-->
+                <li>
+                    <div>
+                        <time><small>2022-01-01</small></time>
+                        <strong>DoukHee</strong>
+                        <p>
+                            Lorem ipsum dolor sit amet, casiodfjcas
+                            Lorem ipsum dolor sit amet, casiodfjcas
+                        </p>
+                    </div>
+                    <!--./div-->
+                </li>
+                <!--./li-->
+                <li>
+                    <div>
+                        <time><small>2022-01-01</small></time>
+                        <strong>DoukHee</strong>
+                        <p>
+                            Lorem ipsum dolor sit amet, casiodfjcas
+                            Lorem ipsum dolor sit amet, casiodfjcas
+                        </p>
+                    </div>
+                    <!--./div-->
+                </li>
+                <!--./li-->
+            </ul>
+            <!--./ul-->
+        </div>
+        <!--./div-->
+        <nav>
+            <a href="void()">이전 글</a>
+            <a href="void()">다음 글</a>
+        </nav>
+        <!--./nav-->
+    </section>
+    <!--./section-->
+</main>
+<!--./main-->
+<!--<footer th:replace="~{fragments/footer::footer}">-->
+<footer id="footer">
+
+</footer>
+<!--./footer-->
+</body>
+</html>
