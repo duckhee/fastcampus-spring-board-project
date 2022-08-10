@@ -1,10 +1,12 @@
 package kr.co.won.controller;
 
+import kr.co.won.config.SecurityConfiguration;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = {
         ArticleController.class // 이렇게 설정을 하면, 특정 controller 만 테스트가 가능하다.
 })
+@Import(SecurityConfiguration.class) // security 설정 파일을 추가해서 인증 관련 적용을 시키기
 class ArticleControllerTest {
 
     private final MockMvc mockMvc;
@@ -42,7 +45,7 @@ class ArticleControllerTest {
                 .andExpect(view().name("articles/index"));
     }
 
-    
+
     @DisplayName(value = "article detail Tests")
     @Test
     void boardDetailViewTests() throws Exception {
