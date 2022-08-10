@@ -22,14 +22,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // security 가 기본적으로 제공하는 로그인 페이지가 구현된 Filter 는 DefaultLoginPageGeneratingFilter 이다.
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.data:spring-data-rest-hal-explorer'
     // 사용자 custom annotation config process
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     // querydsl setting spring boot management 가 querydsl 을 관리를 해주기 때문에 버전 정보를 입력을 하지 않아도 된다.
     implementation 'com.querydsl:querydsl-jpa'
     implementation 'com.querydsl:querydsl-core'

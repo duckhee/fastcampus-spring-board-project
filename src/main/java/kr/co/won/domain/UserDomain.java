@@ -3,10 +3,11 @@ package kr.co.won.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.h2.engine.User;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
+
 
 @Getter
 @ToString
@@ -16,7 +17,7 @@ import java.util.Objects;
         @Index(columnList = "created_by")
 })
 @Entity
-public class UserDomain {
+public class UserDomain extends AuditingFields implements Serializable {
 
     @Id
     @Column(length = 50, name = "user_id")
