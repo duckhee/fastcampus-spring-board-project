@@ -35,6 +35,8 @@ dependencies {
     implementation 'com.querydsl:querydsl-jpa'
     implementation 'com.querydsl:querydsl-core'
     implementation 'com.querydsl:querydsl-collections'
+    /*dev setting */
+    implementation 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
     // querydsl JPAAnnotationProcessor 사용 지정
     annotationProcessor 'jakarta.annotation:jakarta.annotation-api'

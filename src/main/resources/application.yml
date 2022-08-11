@@ -17,10 +17,10 @@ spring:
       base-path: /api # spring data rest setting path
       detection-strategy: annotated
   datasource:
-#    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:mem:testDB
-#    username: sa
-#    password:
+    #    driver-class-name: org.h2.Driver
+    #    url: jdbc:h2:mem:testDB
+    #    username: sa
+    #    password:
     url: jdbc:mysql://localhost:3306/fastCampusBoardProject
     username: root
     password: won1228
@@ -39,7 +39,8 @@ spring:
   h2:
     console:
       enabled: false
-  thymeleaf3: true
+  thymeleaf3:
+    decoupled-logic: true
   #      schema-locations: classpath:/../../../sql
   thymeleaf:
     cache: true
