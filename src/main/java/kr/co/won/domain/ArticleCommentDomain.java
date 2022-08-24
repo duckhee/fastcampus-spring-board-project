@@ -16,7 +16,7 @@ import java.util.Objects;
 
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(name = "tbl_article_comment", indexes = {
         @Index(columnList = "content"),
         @Index(columnList = "created_at"),
@@ -29,19 +29,24 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
     protected ArticleCommentDomain() {
     }
 
-    private ArticleCommentDomain(ArticleDomain article, String content) {
+    private ArticleCommentDomain(UserDomain user, ArticleDomain article, String content) {
         this.article = article;
         this.content = content;
+        this.user = user;
     }
 
-    public static ArticleCommentDomain of(ArticleDomain article, String content) {
-        return new ArticleCommentDomain(article, content);
+    public static ArticleCommentDomain of(UserDomain user, ArticleDomain article, String content) {
+        return new ArticleCommentDomain(user, article, content);
     }
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
+    @ManyToOne(optional = false)
+    private UserDomain user;
 
     @Setter
     @ManyToOne(optional = false)
