@@ -4,12 +4,16 @@ import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import kr.co.won.domain.ArticleDomain;
 import kr.co.won.domain.QArticleDomain;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
+
+import java.nio.channels.FileChannel;
 
 @Repository
 @RepositoryRestResource // 자동으로 REST API 를 만들어주는 annotation
@@ -37,4 +41,15 @@ public interface ArticleRepository extends JpaRepository<ArticleDomain, Long>,
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);
         bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
     }
+
+    Page<ArticleDomain> findByTitleContaining(String title, Pageable pageable);
+
+    Page<ArticleDomain> findByContentContaining(String content, Pageable pageable);
+
+    Page<ArticleDomain> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
+
+    Page<ArticleDomain> findByUserAccount_NickNameContaining(String nickName, Pageable pageable);
+
+    Page<ArticleDomain> findByHashTag(String hashTag, Pageable pageable);
+
 }

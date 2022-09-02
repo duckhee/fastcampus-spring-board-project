@@ -10,11 +10,16 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 @Repository
 @RepositoryRestResource // 자동으로 REST API 를 만들어주는 annotation
 public interface ArticleCommentRepository extends JpaRepository<ArticleCommentDomain, Long>,
         QuerydslPredicateExecutor<ArticleCommentDomain>,
         QuerydslBinderCustomizer<QArticleCommentDomain> {
+
+    List<ArticleCommentDomain> findByArticle_Id(Long articleId);
 
     @Override
     default void customize(QuerydslBindings bindings, QArticleCommentDomain root) {

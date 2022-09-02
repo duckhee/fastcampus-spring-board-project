@@ -18,7 +18,8 @@
 <body>
 <!--<header th:replace="~{fragments/header::header}">-->
 <header id="header">
-
+    <hr>
+    Header
 </header>
 <!--./header-->
 <main class="container">
@@ -63,23 +64,25 @@
         </div>
     </div>
     <!--./search-box-->
-    <table class="table">
+    <table class="table" id="article-table">
         <thead class="table-header">
         <tr>
-            <th class="col-6">제목</th>
-            <th class="col-2">hashTag</th>
-            <th class="col">작성자</th>
-            <th class="col">작성일</th>
+            <th class="title col-6">제목</th>
+            <th class="hashtag col-2">hashTag</th>
+            <th class="user-id col">작성자</th>
+            <th class="created-at col">작성일</th>
         </tr>
         <!--./tr-->
         </thead>
         <!--./thead-->
         <tbody>
         <tr>
-            <td>첫글</td>
-            <td>#java</td>
-            <td>Won</td>
-            <td>2022-08-03</td>
+            <td class="title"><a>첫글</a></td>
+            <td class="hashtag">#java</td>
+            <td class="user-id">Won</td>
+            <td class="created-at">
+                <time>2022-08-03</time>
+            </td>
         </tr>
         <tr>
             <td>두번쨰 글</td>
@@ -116,8 +119,10 @@
 <!--./main-->
 <!--<footer th:replace="~{fragments/footer::footer}">-->
 <footer id="footer">
-
+    <hr>
+    Footer
 </footer>
+
 <!--./footer-->
 <!--bootstrap javascript-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"

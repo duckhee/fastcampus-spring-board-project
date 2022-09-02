@@ -30,6 +30,7 @@ dependencies {
     implementation 'org.springframework.data:spring-data-rest-hal-explorer'
     // 사용자 custom annotation config process
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    // security thymeleaf
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     // querydsl setting spring boot management 가 querydsl 을 관리를 해주기 때문에 버전 정보를 입력을 하지 않아도 된다.
     implementation 'com.querydsl:querydsl-jpa'

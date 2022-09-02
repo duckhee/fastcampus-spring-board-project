@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(name = "tbl_article", indexes = {
         @Index(columnList = "title"), // columnList 를 사용할때 데이터 베이스에 저장되는 이름을 사용해야한다.
         @Index(columnList = "hash_tag"),
@@ -26,16 +26,17 @@ import java.util.Set;
 })
 //@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class ArticleDomain extends AuditingFields implements Serializable  {
+public class ArticleDomain extends AuditingFields implements Serializable {
 
     protected ArticleDomain() {
     }
 
-    public static ArticleDomain of(String title, String content, String hashTag) {
-        return new ArticleDomain(title, content, hashTag);
+    public static ArticleDomain of(UserDomain user, String title, String content, String hashTag) {
+        return new ArticleDomain(user, title, content, hashTag);
     }
 
-    private ArticleDomain(String title, String content, String hashTag) {
+    private ArticleDomain(UserDomain user, String title, String content, String hashTag) {
+        this.userAccount = user;
         this.title = title;
         this.content = content;
         this.hashTag = hashTag;
@@ -44,6 +45,10 @@ public class ArticleDomain extends AuditingFields implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
+    @ManyToOne(optional = false)
+    private UserDomain userAccount;
 
     @Setter
     @Column(name = "title", nullable = false, length = 255)
@@ -57,7 +62,8 @@ public class ArticleDomain extends AuditingFields implements Serializable  {
     @Column(name = "hash_tag", nullable = true)
     private String hashTag; // 해시태그
 
-    @OrderBy(value = "id") // id 값으로 정렬
+    //    @OrderBy(value = "id") // id 값으로 정렬
+    @OrderBy(value = "createdAt DESC") // 시간 순 정렬 설정
     @ToString.Exclude // ToString 제외
     @OneToMany(mappedBy = "article", cascade = {CascadeType.ALL})
     private final Set<ArticleCommentDomain> articleComments = new LinkedHashSet<>();
