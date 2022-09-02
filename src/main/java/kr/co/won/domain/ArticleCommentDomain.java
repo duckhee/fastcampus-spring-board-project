@@ -39,6 +39,16 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
         return new ArticleCommentDomain(user, article, content);
     }
 
+    private ArticleCommentDomain(ArticleDomain article, UserDomain userAccount, String content) {
+        this.article = article;
+        this.userAccount = userAccount;
+        this.content = content;
+    }
+
+    public static ArticleCommentDomain of(ArticleDomain article, UserDomain userAccount, String content) {
+        return new ArticleCommentDomain(article, userAccount, content);
+    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +62,11 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
     @ManyToOne(optional = false)
     @JoinColumn(name = "article_id", nullable = false)
     private ArticleDomain article; // 게시글 아이디
+
+    @Setter
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
+    private UserDomain userAccount; // 유저 정보 (ID)
 
     @Setter
     @Column(nullable = false, length = 500)
@@ -77,13 +92,13 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ArticleCommentDomain articleComment)) return false;
-
-        return id != null && id.equals(articleComment.id);
+        if (!(o instanceof ArticleCommentDomain that)) return false;
+        return id != null && id.equals(that.getId());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

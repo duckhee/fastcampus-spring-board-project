@@ -38,7 +38,7 @@ class ArticleCommentServiceTest {
         // Given
         Long articleId = 1L;
 
-        ArticleDomain article = ArticleDomain.of("title", "content", "hashTag");
+        ArticleDomain article = ArticleDomain.of(null,"title", "content", "hashTag");
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
         // When
         List<ArticleCommentDomainDto> articleComments = articleCommentService.searchArticleComments(articleId);

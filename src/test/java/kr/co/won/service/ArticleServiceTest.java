@@ -4,6 +4,7 @@ import kr.co.won.domain.ArticleDomain;
 import kr.co.won.domain.type.SearchType;
 import kr.co.won.dto.ArticleDomainDto;
 import kr.co.won.dto.ArticleUpdateDto;
+import kr.co.won.dto.UserAccountDto;
 import kr.co.won.repository.ArticleRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,10 +45,10 @@ class ArticleServiceTest {
     @Test
     void givenSearchParameters_whenSearchingArticles_thenReturnArticleListTests() {
         // Given
-
+        Pageable pageable = Pageable.ofSize(20);
 
         // When
-        Page<ArticleDomainDto> articles = sut.searchArticles(SearchType.TITLE, "search TITLE"); // 제목, 본문, ID, 닉네임, 해시태그
+        Page<ArticleDomainDto> articles = sut.searchArticles(SearchType.TITLE, "search TITLE", pageable); // 제목, 본문, ID, 닉네임, 해시태그
 
         // Then
         Assertions.assertThat(articles).isNotNull();
@@ -70,7 +72,7 @@ class ArticleServiceTest {
     @Test
     void givenArticleInfo_whenSavingArticle_thenSaveArticle() {
         // Given
-        ArticleDomainDto newArticle = ArticleDomainDto.of("new Title", "new Content", "hashTag", LocalDateTime.now(), "won");
+        ArticleDomainDto newArticle = ArticleDomainDto.of(null, "new Title", "new Content", "hashTag");
 
         // mockito
         // mockito 의 return 값이 void 일경우 사용을 하는 것이 willDoNoting().given()
@@ -114,5 +116,17 @@ class ArticleServiceTest {
 
         // then
         then(articleRepository).should().delete(any(ArticleDomain.class));
+    }
+
+    private UserAccountDto userAccountDto() {
+        return UserAccountDto.of("uno",
+                "password",
+                "uno@mail.com",
+                "Uno",
+                "This is memo",
+                LocalDateTime.now(),
+                "uno",
+                LocalDateTime.now(),
+                "uno");
     }
 }
