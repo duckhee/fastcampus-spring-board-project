@@ -29,16 +29,6 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
     protected ArticleCommentDomain() {
     }
 
-    private ArticleCommentDomain(UserDomain user, ArticleDomain article, String content) {
-        this.article = article;
-        this.content = content;
-        this.user = user;
-    }
-
-    public static ArticleCommentDomain of(UserDomain user, ArticleDomain article, String content) {
-        return new ArticleCommentDomain(user, article, content);
-    }
-
     private ArticleCommentDomain(ArticleDomain article, UserDomain userAccount, String content) {
         this.article = article;
         this.userAccount = userAccount;
@@ -56,16 +46,12 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
 
     @Setter
     @ManyToOne(optional = false)
-    private UserDomain user;
-
-    @Setter
-    @ManyToOne(optional = false)
     @JoinColumn(name = "article_id", nullable = false)
     private ArticleDomain article; // 게시글 아이디
 
     @Setter
     @ManyToOne(optional = false)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private UserDomain userAccount; // 유저 정보 (ID)
 
     @Setter
