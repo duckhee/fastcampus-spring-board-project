@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.sql.DriverManager;
 import java.util.Optional;
 
 /**
@@ -18,5 +19,6 @@ public class JPAConfiguration {
     public AuditorAware<String> stringAuditorAware() {
         return () -> Optional.of("won"); // TODO Change AUth
     }
+
 
 }
