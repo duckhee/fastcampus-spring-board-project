@@ -2,7 +2,6 @@ package kr.co.won.controller;
 
 import kr.co.won.domain.type.SearchType;
 import kr.co.won.dto.ArticleWithCommentsDto;
-import kr.co.won.dto.response.ArticleCommentResponse;
 import kr.co.won.dto.response.ArticleResponse;
 import kr.co.won.dto.response.ArticleWithCommentsResponse;
 import kr.co.won.service.ArticleService;
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +45,7 @@ public class ArticleController {
     ) {
         Page<ArticleResponse> articleResponses = articleService.searchArticles(searchType, searchValue, pageable).map(ArticleResponse::from);
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), articleResponses.getTotalPages());
+
         modelMap.addAttribute("paginationBarNumbers", barNumbers);
         modelMap.addAttribute("articles", articleResponses);
         return "articles/index";
