@@ -47,6 +47,7 @@ public class ArticleDomain extends AuditingFields implements Serializable {
     private Long id;
 
     @Setter
+    @JoinColumn(name = "user_id")
     @ManyToOne(optional = false)
     private UserDomain userAccount;
 

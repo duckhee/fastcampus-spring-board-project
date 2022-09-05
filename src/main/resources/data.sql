@@ -1,14 +1,14 @@
 -- 테스트 계정
 -- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
-insert into tbl_user (user_id, user_password, nickname, email, memo, created_at, created_by, updated_at, updated_by)
+insert into tbl_user (user_id, user_password, nick_name, email, memo, created_at, created_by, updated_at, updated_by)
 values ('uno', '{noop}asdf1234', 'Uno', 'uno@mail.com', 'I am Uno.', now(), 'uno', now(), 'uno')
 ;
-insert into tbl_user (user_id, user_password, nickname, email, memo, created_at, created_by, updated_at, updated_by)
+insert into tbl_user (user_id, user_password, nick_name, email, memo, created_at, created_by, updated_at, updated_by)
 values ('uno2', '{noop}asdf1234', 'Uno2', 'uno2@mail.com', 'I am Uno2.', now(), 'uno2', now(), 'uno2')
 ;
 
 -- 123 게시글
-insert into tbl_article (user_id, title, content, hashtag, created_by, updated_by, created_at, updated_at)
+insert into tbl_article (user_id, title, content, hash_tag, created_by, updated_by, created_at, updated_at)
 values ('uno2', 'Quisque ut erat.', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
 
 Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.

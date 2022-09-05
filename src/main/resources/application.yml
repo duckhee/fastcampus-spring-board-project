@@ -11,7 +11,9 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 spring:
-
+  sql:
+    init:
+      mode: ALWAYS
   data:
     rest:
       base-path: /api # spring data rest setting path
@@ -41,7 +43,7 @@ spring:
       enabled: false
   thymeleaf3:
     decoupled-logic: true
-  #      schema-locations: classpath:/../../../sql
+  #        schema-locations: classpath:/../../../sql
   thymeleaf:
     cache: true
 
