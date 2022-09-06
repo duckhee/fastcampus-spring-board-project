@@ -1,6 +1,7 @@
 package kr.co.won.controller;
 
 import kr.co.won.config.SecurityConfiguration;
+import kr.co.won.domain.type.SearchType;
 import kr.co.won.dto.ArticleDomainDto;
 import kr.co.won.dto.ArticleWithCommentsDto;
 import kr.co.won.dto.UserAccountDto;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -76,6 +78,32 @@ class ArticleControllerTest {
         // 등장 여부 확인
         then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
+
+
+    @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 검색어와 함께 호출")
+    @Test
+    public void givenSearchKeyword_whenSearchingArticlesView_thenReturnsArticlesView() throws Exception {
+        // Given
+        SearchType searchType = SearchType.TITLE;
+        String searchValue = "title";
+        given(articleService.searchArticles(eq(searchType), eq(searchValue), any(Pageable.class))).willReturn(Page.empty());
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(0, 1, 2, 3, 4));
+
+        // When & Then
+        mockMvc.perform(
+                        get("/articles")
+                                .queryParam("searchType", searchType.name())
+                                .queryParam("searchValue", searchValue)
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/index"))
+                .andExpect(model().attributeExists("articles"))
+                .andExpect(model().attributeExists("searchTypes"));
+        then(articleService).should().searchArticles(eq(searchType), eq(searchValue), any(Pageable.class));
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
+    }
+
 
     @DisplayName(value = "[view] [GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
@@ -139,16 +167,18 @@ class ArticleControllerTest {
         return UserAccountDto.of("user", "user", "user@co.kr", "nick", "mem");
     }
 
-    @Disabled(value = "develop")
-    @DisplayName(value = "article search Test")
+    @Disabled("구현 중")
+    @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
     @Test
-    void boardSearchTests() throws Exception {
-        mockMvc.perform(get("/article/search"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("articles/search"))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
-    }
+    public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
+        // Given
 
+        // When & Then
+        mockMvc.perform(get("/articles/search"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/search"));
+    }
 
     @Disabled(value = "develop")
 
@@ -160,5 +190,6 @@ class ArticleControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/search-hashtag"));
     }
+
 
 }
