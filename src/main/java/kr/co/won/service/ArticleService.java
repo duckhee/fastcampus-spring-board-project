@@ -75,7 +75,7 @@ public class ArticleService {
     }
 
     public void deleteArticle(Long articleId) {
-
+        articleRepository.deleteById(articleId);
     }
 
 
@@ -93,11 +93,21 @@ public class ArticleService {
     }
 
 
+    @Transactional(readOnly = true)
+
     public Page<ArticleDomainDto> searchArticlesViaHashtag(String hashtag, Pageable pageable) {
-        return null;
+        if (hashtag == null || hashtag.isBlank()) {
+            return Page.empty(pageable);
+        }
+        return articleRepository.findByHashTag(hashtag, pageable).map(ArticleDomainDto::from);
     }
 
+    public long getArticleCount() {
+        return articleRepository.count();
+    }
+
+
     public List<String> getHashTags() {
-        return null;
+        return articleRepository.findAllDistinctHashTags();
     }
 }
