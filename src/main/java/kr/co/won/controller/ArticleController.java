@@ -1,6 +1,7 @@
 package kr.co.won.controller;
 
 import kr.co.won.domain.type.SearchType;
+import kr.co.won.dto.ArticleDomainDto;
 import kr.co.won.dto.ArticleWithCommentsDto;
 import kr.co.won.dto.response.ArticleResponse;
 import kr.co.won.dto.response.ArticleWithCommentsResponse;
@@ -59,6 +60,23 @@ public class ArticleController {
         modelMap.addAttribute("article", findArticle);
         modelMap.addAttribute("articleComments", findArticle.articleCommentsResponse());
         return "articles/detail";
+    }
+
+    @GetMapping(path = "/search-hashtag")
+    public String searchHashTag(
+            @RequestParam(value = "searchValue", required = false) String searchValue,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+            ModelMap modelMap
+    ) {
+        Page<ArticleResponse> articleResponses = articleService.searchArticlesViaHashtag(searchValue, pageable).map(ArticleResponse::from);
+        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), articleResponses.getTotalPages());
+        List<String> hashTags = articleService.getHashTags();
+
+        modelMap.addAttribute("articles", articleResponses);
+        modelMap.addAttribute("hashTags", hashTags);
+        modelMap.addAttribute("paginationBarNumbers", barNumbers);
+        modelMap.addAttribute("searchType", SearchType.HASHTAG);
+        return "articles/search-hashtag";
     }
 
 }

@@ -180,15 +180,55 @@ class ArticleControllerTest {
                 .andExpect(view().name("articles/search"));
     }
 
-    @Disabled(value = "develop")
-
     @DisplayName(value = "article hash tag search Tests")
     @Test
     void boardSearchHashTagTests() throws Exception {
+        // given
+        given(articleService.searchArticlesViaHashtag(eq(null), any(Pageable.class))).willReturn(Page.empty());
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(1, 2, 3, 4, 5));
+        given(articleService.getHashTags()).willReturn(List.of("#java", "#spring", "#boot"));
+
+        // When & Then
         mockMvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(view().name("articles/search-hashtag"));
+                .andExpect(view().name("articles/search-hashtag"))
+                .andExpect(model().attribute("articles", Page.empty()))
+                .andExpect(model().attributeExists("hashTags"))
+                .andExpect(model().attributeExists("paginationBarNumbers"))
+                .andExpect(model().attribute("searchType", SearchType.HASHTAG));
+
+        // Then
+        then(articleService).should().searchArticlesViaHashtag(eq(null), any(Pageable.class));
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
+        then(articleService).should().getHashTags();
+    }
+
+
+    @DisplayName(value = "article hash tag search Tests - success, input hashTag")
+    @Test
+    void boardSearchHashTagSuccessTests() throws Exception {
+        // given
+        String hashTag = "#java";
+        given(articleService.searchArticlesViaHashtag(eq(hashTag), any(Pageable.class))).willReturn(Page.empty());
+        given(paginationService.getPaginationBarNumbers(anyInt(), anyInt())).willReturn(List.of(1, 2, 3, 4, 5));
+        given(articleService.getHashTags()).willReturn(List.of("#java", "#spring", "#boot"));
+
+        // When & Then
+        mockMvc.perform(get("/articles/search-hashtag")
+                        .queryParam("searchValue", hashTag))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("articles/search-hashtag"))
+                .andExpect(model().attribute("articles", Page.empty()))
+                .andExpect(model().attributeExists("hashTags"))
+                .andExpect(model().attributeExists("paginationBarNumbers"))
+                .andExpect(model().attribute("searchType", SearchType.HASHTAG));
+
+        // Then
+        then(articleService).should().searchArticlesViaHashtag(eq(hashTag), any(Pageable.class));
+        then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
+        then(articleService).should().getHashTags();
     }
 
 
