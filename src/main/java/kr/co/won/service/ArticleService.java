@@ -6,6 +6,7 @@ import kr.co.won.domain.type.SearchType;
 import kr.co.won.dto.ArticleDomainDto;
 import kr.co.won.dto.ArticleUpdateDto;
 import kr.co.won.dto.ArticleWithCommentsDto;
+import kr.co.won.dto.UserAccountDto;
 import kr.co.won.repository.ArticleRepository;
 import kr.co.won.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,5 +90,14 @@ public class ArticleService {
         return articleRepository.findById(articleId)
                 .map(ArticleDomainDto::from)
                 .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - articleId: " + articleId));
+    }
+
+
+    public Page<ArticleDomainDto> searchArticlesViaHashtag(String hashtag, Pageable pageable) {
+        return null;
+    }
+
+    public List<String> getHashTags() {
+        return null;
     }
 }

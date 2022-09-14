@@ -23,6 +23,11 @@ public record ArticleDomainDto(
         return new ArticleDomainDto(null, userAccountDto, title, content, hashTag, null, null, null, null);
     }
 
+
+    public static ArticleDomainDto of(Long idx, UserAccountDto userAccountDto, String title, String content, String hashTag, LocalDateTime createdAt, String createBy, LocalDateTime updatedAt, String updateBy) {
+        return new ArticleDomainDto(idx, userAccountDto, title, content, hashTag, createdAt, createBy, updatedAt, updateBy);
+    }
+
     public static ArticleDomainDto from(ArticleDomain articleDomain) {
         return new ArticleDomainDto(
                 articleDomain.getId(),
