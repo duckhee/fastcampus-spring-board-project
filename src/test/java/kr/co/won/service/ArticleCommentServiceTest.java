@@ -5,6 +5,7 @@ import kr.co.won.dto.ArticleCommentDomainDto;
 import kr.co.won.repository.ArticleCommentRepository;
 import kr.co.won.repository.ArticleRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,6 +32,7 @@ class ArticleCommentServiceTest {
     @Mock
     private ArticleRepository articleRepository;
 
+    @Disabled
     @DisplayName(value = "게시글 아이디로 조회하면, 해당하는 댓글 리스트를 반환한다.")
     @Test
     void givenArticleId_whenSearchArticleComments_thenReturnArticleComments() {
