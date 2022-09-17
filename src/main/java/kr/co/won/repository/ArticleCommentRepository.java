@@ -21,6 +21,9 @@ public interface ArticleCommentRepository extends JpaRepository<ArticleCommentDo
 
     List<ArticleCommentDomain> findByArticle_Id(Long articleId);
 
+    void deleteByIdAndUserAccount_UserId(Long id, String userId);
+
+
     @Override
     default void customize(QuerydslBindings bindings, QArticleCommentDomain root) {
         bindings.excludeUnlistedProperties(true);

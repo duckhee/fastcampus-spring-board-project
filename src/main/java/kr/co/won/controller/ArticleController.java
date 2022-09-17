@@ -1,10 +1,13 @@
 package kr.co.won.controller;
 
+import kr.co.won.domain.constant.FormStatus;
 import kr.co.won.domain.type.SearchType;
 import kr.co.won.dto.ArticleDomainDto;
 import kr.co.won.dto.ArticleWithCommentsDto;
+import kr.co.won.dto.request.ArticleRequest;
 import kr.co.won.dto.response.ArticleResponse;
 import kr.co.won.dto.response.ArticleWithCommentsResponse;
+import kr.co.won.dto.security.BoardPrincipal;
 import kr.co.won.service.ArticleService;
 import kr.co.won.service.PaginationService;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +15,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -79,4 +80,18 @@ public class ArticleController {
         return "articles/search-hashtag";
     }
 
+    @GetMapping(path = "/form")
+    public String articleForm(ModelMap modelMap) {
+        modelMap.addAttribute("formStatus", FormStatus.CREATE);
+        return "articles/form";
+    }
+
+    @PostMapping(path = "/form")
+    public String postNewArticle(
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+            ArticleRequest articleRequest
+    ) {
+        articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
+        return "redirect:/articles";
+    }
 }
