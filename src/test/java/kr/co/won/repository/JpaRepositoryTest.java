@@ -1,6 +1,7 @@
 package kr.co.won.repository;
 
 import kr.co.won.config.JPAConfiguration;
+import kr.co.won.config.TestJpaConfig;
 import kr.co.won.domain.ArticleDomain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Disabled
 @DisplayName(value = "JPA Connect Tests")
 @Import(value = {
-        JPAConfiguration.class
+        TestJpaConfig.class
 })
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @DataJpaTest

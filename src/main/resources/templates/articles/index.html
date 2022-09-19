@@ -1,32 +1,29 @@
 <!DOCTYPE html>
-<!--<html lang="ko" xmlns:th="https://www.thymeleaf.org">-->
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="fast Campus spring board project">
-    <meta name="author" content="DoukHeeWon">
+    <meta name="description" content="">
+    <meta name="author" content="Uno Kim">
     <title>게시판 페이지</title>
-    <!--bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <!--search-bar-->
-    <link rel="stylesheet" href="/css/search-bar.css">
-    <link rel="stylesheet" href="/css/articles/article-content.css">
-    <link rel="stylesheet" href="/css/articles/table-header.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="/css/search-bar.css" rel="stylesheet">
+    <link href="/css/articles/table-header.css" rel="stylesheet">
 </head>
+
 <body>
-<!--<header th:replace="~{fragments/header::header}">-->
 <header id="header">
+    헤더 삽입부
     <hr>
-    Header
 </header>
-<!--./header-->
+
 <main class="container">
+
     <div class="row">
         <div class="card card-margin search-form">
             <div class="card-body p-0">
-                <form id="search-form" action="/articles" method="GET">
+                <form id="search-form">
                     <div class="row">
                         <div class="col-12">
                             <div class="row no-gutters">
@@ -42,15 +39,11 @@
                                 </div>
                                 <div class="col-lg-8 col-md-6 col-sm-12 p-0">
                                     <label for="search-value" hidden>검색어</label>
-                                    <input type="text" placeholder="검색어..." class="form-control" id="search-value"
-                                           name="searchValue">
+                                    <input type="text" placeholder="검색어..." class="form-control" id="search-value" name="searchValue">
                                 </div>
                                 <div class="col-lg-1 col-md-3 col-sm-12 p-0">
                                     <button type="submit" class="btn btn-base">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-search">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                                             <circle cx="11" cy="11" r="8"></circle>
                                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                         </svg>
@@ -63,68 +56,62 @@
             </div>
         </div>
     </div>
-    <!--./search-box-->
-    <table class="table" id="article-table">
-        <thead class="table-header">
-        <tr>
-            <th class="title col-6"><a>제목</a></th>
-            <th class="hashtag col-2"><a>hashTag</a></th>
-            <th class="user-id col"><a>작성자</a></th>
-            <th class="created-at col"><a>작성일</a></th>
-        </tr>
-        <!--./tr-->
-        </thead>
-        <!--./thead-->
-        <tbody>
-        <tr>
-            <td class="title"><a>첫글</a></td>
-            <td class="hashtag">#java</td>
-            <td class="user-id">Won</td>
-            <td class="created-at">
-                <time>2022-08-03</time>
-            </td>
-        </tr>
-        <tr>
-            <td>두번쨰 글</td>
-            <td>#java</td>
-            <td>Won</td>
-            <td>2022-08-03</td>
-        </tr>
-        <tr>
-            <td>세번째 글</td>
-            <td>#spring</td>
-            <td>Won</td>
-            <td>2022-08-03</td>
-        </tr>
-        </tbody>
-        <!--./tbody-->
-        <tfoot>
 
-        </tfoot>
-        <!--./tfoot-->
-    </table>
-    <!--./table-->
-    <nav id="pagination" aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-        <!--./pagination-->
-    </nav>
-    <!--./navigation-->
+    <div class="row">
+        <table class="table" id="article-table">
+            <thead>
+            <tr>
+                <th class="title col-6"><a>제목</a></th>
+                <th class="hashtag col-2"><a>해시태그</a></th>
+                <th class="user-id"><a>작성자</a></th>
+                <th class="created-at"><a>작성일</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="title"><a>첫글</a></td>
+                <td class="hashtag">#java</td>
+                <td class="user-id">Uno</td>
+                <td class="created-at"><time>2022-01-01</time></td>
+            </tr>
+            <tr>
+                <td>두번째글</td>
+                <td>#spring</td>
+                <td>Uno</td>
+                <td><time>2022-01-02</time></td>
+            </tr>
+            <tr>
+                <td>세번째글</td>
+                <td>#java</td>
+                <td>Uno</td>
+                <td><time>2022-01-03</time></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-primary me-md-2" role="button" id="write-article">글쓰기</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <nav id="pagination" aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
 </main>
-<!--./main-->
-<!--<footer th:replace="~{fragments/footer::footer}">-->
+
 <footer id="footer">
     <hr>
-    Footer
+    푸터 삽입부
 </footer>
 
-<!--./footer-->
-<!--bootstrap javascript-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>
