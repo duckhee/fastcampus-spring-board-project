@@ -174,7 +174,7 @@ class ArticleServiceTest {
     void givenArticleInfo_whenModifyArticle_thenUpdateArticle() {
 
         // Given
-        ArticleUpdateDto updateArticle = ArticleUpdateDto.of("new Title", "new Content", "hashTag");
+        ArticleDomainDto updateArticle = ArticleDomainDto.of(createUserAccountDto(), "new Title", "new Content", "hashTag");
         // mockito
         given(articleRepository.save(any(ArticleDomain.class))).willReturn(null);
         // When
@@ -192,10 +192,10 @@ class ArticleServiceTest {
         Long articleId = 1L;
 
         // mockito
-        willDoNothing().given(articleRepository).delete(any(ArticleDomain.class));
+        willDoNothing().given(articleRepository).deleteByIdAndUserAccountUserId(articleId, "uno");
 
         // when
-        sut.deleteArticle(articleId);
+        sut.deleteArticle(articleId, "uno");
 
         // then
         then(articleRepository).should().delete(any(ArticleDomain.class));

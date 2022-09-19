@@ -60,22 +60,25 @@ public class ArticleService {
         articleRepository.save(newArticle.toEntity(userAccount));
     }
 
-    public void updateArticle(Long articleId, ArticleUpdateDto updateArticle) {
+    public void updateArticle(Long articleId, ArticleDomainDto updateArticle) {
         try {
             // getOne
             ArticleDomain article = articleRepository.getReferenceById(articleId);
-            if (updateArticle.title() != null || !updateArticle.title().isBlank())
-                article.setTitle(updateArticle.title());
-            if (updateArticle.content() != null || !updateArticle.content().isBlank())
-                article.setContent(updateArticle.content());
-            article.setHashTag(updateArticle.hashTag());
+            UserDomain userAccount = userRepository.getReferenceById(updateArticle.userAccountDto().userId());
+            if (article.getUserAccount().equals(userAccount)) {
+                if (updateArticle.title() != null || !updateArticle.title().isBlank())
+                    article.setTitle(updateArticle.title());
+                if (updateArticle.content() != null || !updateArticle.content().isBlank())
+                    article.setContent(updateArticle.content());
+                article.setHashTag(updateArticle.hashTag());
+            }
         } catch (EntityNotFoundException exception) {
-            log.warn("게시글 업데이트 실패. 게시글을 찾을 수 없습니다. - dto : {}", updateArticle);
+            log.warn("게시글 업데이트 실패. 게시글을 수정하는데 필요한 정보를 찾을 수 없습니다. - dto : {} {}", updateArticle, exception.getLocalizedMessage());
         }
     }
 
-    public void deleteArticle(Long articleId) {
-        articleRepository.deleteById(articleId);
+    public void deleteArticle(Long articleId, String userId) {
+        articleRepository.deleteByIdAndUserAccountUserId(articleId, userId);
     }
 
 

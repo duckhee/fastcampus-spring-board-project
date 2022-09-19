@@ -19,20 +19,20 @@ import java.util.Optional;
 @Configuration
 public class JPAConfiguration {
 
-    @Bean
-    public AuditorAware<String> stringAuditorAware() {
-        return () -> Optional.of("won"); // TODO Change AUth
-    }
-
 //    @Bean
-//    public AuditorAware<String> auditorAware() {
-//        return () -> Optional.ofNullable(SecurityContextHolder.getContext())
-//                .map(SecurityContext::getAuthentication)
-//                .filter(Authentication::isAuthenticated)
-//                .map(Authentication::getPrincipal)
-//                .map(BoardPrincipal.class::cast)
-//                .map(BoardPrincipal::getUsername);
+//    public AuditorAware<String> stringAuditorAware() {
+//        return () -> Optional.of("won"); // TODO Change AUth
 //    }
+
+    @Bean
+    public AuditorAware<String> auditorAware() {
+        return () -> Optional.ofNullable(SecurityContextHolder.getContext())
+                .map(SecurityContext::getAuthentication)
+                .filter(Authentication::isAuthenticated)
+                .map(Authentication::getPrincipal)
+                .map(BoardPrincipal.class::cast)
+                .map(BoardPrincipal::getUsername);
+    }
 
 
 }
