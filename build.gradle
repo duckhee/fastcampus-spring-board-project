@@ -83,3 +83,10 @@ sourceSets {
 clean {
     delete file(generated)
 }
+
+// Heroku setting
+jar{
+    manifest {
+        attributes("Main-Class":"kr.co.won.SpringProjectBoardApplication")
+    }
+}
