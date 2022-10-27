@@ -1,10 +1,9 @@
 package kr.co.won.repository;
 
-import kr.co.won.config.JPAConfiguration;
 import kr.co.won.config.TestJpaConfig;
 import kr.co.won.domain.ArticleDomain;
+import kr.co.won.domain.UserDomain;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-@Disabled
+//@Disabled
 @DisplayName(value = "JPA Connect Tests")
 @Import(value = {
         TestJpaConfig.class
@@ -34,19 +33,30 @@ class JpaRepositoryTest {
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
 
-    JpaRepositoryTest(@Autowired EntityManager entityManager, @Autowired ArticleRepository articleRepository, @Autowired ArticleCommentRepository articleCommentRepository) {
+    private final UserRepository userRepository;
+
+    JpaRepositoryTest(@Autowired EntityManager entityManager, @Autowired ArticleRepository articleRepository, @Autowired ArticleCommentRepository articleCommentRepository, @Autowired UserRepository userRepository) {
         this.entityManager = entityManager;
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
+        this.userRepository = userRepository;
     }
 
     @DisplayName(value = "select Tests")
     @Test
     void givenTestData_whenSelecting_thenWorksFine() {
-
+        UserDomain sampleUser = UserDomain.of("test", "test", "tes", "tes", "aaa");
+        UserDomain savedUser = userRepository.save(sampleUser);
         // Given
+        long previousCount = articleRepository.count();
+        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
 
         // When
+        ArticleDomain savedArticle = articleRepository.save(articleDomain);
+        entityManager.flush();
+        // When
+        List<ArticleDomain> new_article = articleRepository.findAllByTitle("new article");
+
         List<ArticleDomain> articles = articleRepository.findAll();
         System.out.println("get size :: " + articles.size());
         // Then
@@ -59,10 +69,11 @@ class JpaRepositoryTest {
     @DisplayName(value = "insert Tests")
     @Test
     void givenTestData_whenInsert_thenWorksFine() {
-
+        UserDomain sampleUser = UserDomain.of("test", "test", "tes", "tes", "aaa");
+        UserDomain savedUser = userRepository.save(sampleUser);
         // Given
         long previousCount = articleRepository.count();
-        ArticleDomain articleDomain = ArticleDomain.of(null, "new article", "article content", "#spring");
+        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
 
         // When
         ArticleDomain savedArticle = articleRepository.save(articleDomain);
@@ -77,10 +88,11 @@ class JpaRepositoryTest {
     @DisplayName(value = "update Tests")
     @Test
     void givenTestData_whenUpdate_thenWorksFine() {
-
+        UserDomain sampleUser = UserDomain.of("test", "test", "tes", "tes", "aaa");
+        UserDomain savedUser = userRepository.save(sampleUser);
         // Given
         long previousCount = articleRepository.count();
-        ArticleDomain articleDomain = ArticleDomain.of(null, "new article", "article content", "#spring");
+        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
         ArticleDomain savedArticle = articleRepository.saveAndFlush(articleDomain);
         // 영속성 초기화
         entityManager.flush();

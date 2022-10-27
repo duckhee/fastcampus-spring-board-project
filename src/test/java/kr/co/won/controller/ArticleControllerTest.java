@@ -115,6 +115,7 @@ class ArticleControllerTest {
 
     @DisplayName(value = "[view] [GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
+
     void givenPagingAndSortingParams_whenSearchingArticlePages_thenReturnArticlePageNumbers() throws Exception {
         // given
         String sortName = "title";
@@ -148,6 +149,7 @@ class ArticleControllerTest {
     @WithMockUser
     @DisplayName("[view][GET] 새 게시글 작성 페이지")
     @Test
+
     void givenNothing_whenRequesting_thenReturnsNewArticlePage() throws Exception {
         // Given
 
@@ -162,6 +164,8 @@ class ArticleControllerTest {
 
     @DisplayName(value = "[VIEW][GET] article detail Tests")
     @Test
+    @WithMockUser
+
     void boardDetailViewTests() throws Exception {
 
         // given
@@ -192,6 +196,8 @@ class ArticleControllerTest {
     @Disabled("구현 중")
     @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
     @Test
+    @WithMockUser
+
     public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
         // Given
 
@@ -204,6 +210,7 @@ class ArticleControllerTest {
 
     @DisplayName(value = "article hash tag search Tests")
     @Test
+    @WithMockUser
     void boardSearchHashTagTests() throws Exception {
         // given
         given(articleService.searchArticlesViaHashtag(eq(null), any(Pageable.class))).willReturn(Page.empty());
@@ -229,6 +236,7 @@ class ArticleControllerTest {
 
     @DisplayName(value = "article hash tag search Tests - success, input hashTag")
     @Test
+    @WithMockUser
     void boardSearchHashTagSuccessTests() throws Exception {
         // given
         String hashTag = "#java";

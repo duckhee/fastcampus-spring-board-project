@@ -8,13 +8,17 @@ import kr.co.won.repository.querydsl.ArticleRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.QueryHint;
 import java.nio.channels.FileChannel;
+import java.util.List;
 
 @Repository
 @RepositoryRestResource // 자동으로 REST API 를 만들어주는 annotation
@@ -22,6 +26,10 @@ public interface ArticleRepository extends JpaRepository<ArticleDomain, Long>,
         QuerydslPredicateExecutor<ArticleDomain>, // 기본 검색 기능이 가능하게 해주는 것이다.
         QuerydslBinderCustomizer<QArticleDomain>, // 원하는 형태의 검색을 위해서 추가하는 것이다.
         ArticleRepositoryCustom {
+
+
+    List<ArticleDomain> findAllByTitle(String title);
+
     @Override
     default void customize(QuerydslBindings bindings, QArticleDomain root) {
         // 모든 검색이 가능한 상태 현재 PredicateExecutor 를 사용을 해서 그렇다.

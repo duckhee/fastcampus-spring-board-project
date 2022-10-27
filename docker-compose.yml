@@ -1,5 +1,5 @@
 # docker compose version setting
-VERSION: '2'
+version: '2'
 
 # service setting
 services:
@@ -12,7 +12,7 @@ services:
       - ./docker/database/:/var/lib/mysql # volume mount setting
     environment:
       MYSQL_ROOT_PASSWORD: won1228
-      MYSQL_DATABASE: big_data_study
+      MYSQL_DATABASE: fastcampusboardproject
       MYSQL_USER: study
       MYSQL_PASSWORD: 1234
       TZ: Asia/Seoul # time zone setting
