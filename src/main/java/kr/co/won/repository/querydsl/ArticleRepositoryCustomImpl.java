@@ -19,10 +19,11 @@ public class ArticleRepositoryCustomImpl extends QuerydslRepositorySupport imple
     public List<String> findAllDistinctHashTags() {
         QArticleDomain article = articleDomain;
 
-        JPQLQuery<String> query = from(article)
-                .distinct()
-                .select(article.hashTag)
-                .where(article.hashTag.isNotNull());
-        return query.fetch();
+//        JPQLQuery<String> query = from(article)
+//                .distinct()
+//                .select(article.hashTag)
+//                .where(article.hashTag.isNotNull());
+//        return query.fetch();
+        return null;
     }
 }

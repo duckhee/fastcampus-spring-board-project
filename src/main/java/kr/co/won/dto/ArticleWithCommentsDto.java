@@ -2,6 +2,7 @@ package kr.co.won.dto;
 
 
 import kr.co.won.domain.ArticleDomain;
+import kr.co.won.domain.HashTagDomain;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -15,7 +16,7 @@ public final class ArticleWithCommentsDto {
     private final Set<ArticleCommentDomainDto> articleCommentDtos;
     private final String title;
     private final String content;
-    private final String hashtag;
+    private final Set<HashtagDto> hashtags;
     private final LocalDateTime createdAt;
     private final String createdBy;
     private final LocalDateTime modifiedAt;
@@ -27,7 +28,7 @@ public final class ArticleWithCommentsDto {
             Set<ArticleCommentDomainDto> articleCommentDtos,
             String title,
             String content,
-            String hashtag,
+            Set<HashtagDto> hashtags,
             LocalDateTime createdAt,
             String createdBy,
             LocalDateTime modifiedAt,
@@ -38,14 +39,14 @@ public final class ArticleWithCommentsDto {
         this.articleCommentDtos = articleCommentDtos;
         this.title = title;
         this.content = content;
-        this.hashtag = hashtag;
+        this.hashtags = hashtags;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.modifiedAt = modifiedAt;
         this.modifiedBy = modifiedBy;
     }
 
-    public static ArticleWithCommentsDto of(Long id, UserAccountDto userAccountDto, Set<ArticleCommentDomainDto> articleCommentDtos, String title, String content, String hashtag, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
+    public static ArticleWithCommentsDto of(Long id, UserAccountDto userAccountDto, Set<ArticleCommentDomainDto> articleCommentDtos, String title, String content, Set<HashtagDto> hashtag, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
         return new ArticleWithCommentsDto(id, userAccountDto, articleCommentDtos, title, content, hashtag, createdAt, createdBy, modifiedAt, modifiedBy);
     }
 
@@ -58,7 +59,7 @@ public final class ArticleWithCommentsDto {
                         .collect(Collectors.toCollection(LinkedHashSet::new)),
                 entity.getTitle(),
                 entity.getContent(),
-                entity.getHashTag(),
+                entity.getHashtags().stream().map(HashtagDto::from).collect(Collectors.toUnmodifiableSet()),
                 entity.getCreatedAt(),
                 entity.getCreatedBy(),
                 entity.getUpdatedAt(),
@@ -86,8 +87,8 @@ public final class ArticleWithCommentsDto {
         return content;
     }
 
-    public String hashtag() {
-        return hashtag;
+    public Set<HashtagDto> hashtags() {
+        return hashtags;
     }
 
     public LocalDateTime createdAt() {
@@ -116,7 +117,7 @@ public final class ArticleWithCommentsDto {
                 Objects.equals(this.articleCommentDtos, that.articleCommentDtos) &&
                 Objects.equals(this.title, that.title) &&
                 Objects.equals(this.content, that.content) &&
-                Objects.equals(this.hashtag, that.hashtag) &&
+//                Objects.equals(this.hashtag, that.hashtag) &&
                 Objects.equals(this.createdAt, that.createdAt) &&
                 Objects.equals(this.createdBy, that.createdBy) &&
                 Objects.equals(this.modifiedAt, that.modifiedAt) &&
@@ -125,7 +126,7 @@ public final class ArticleWithCommentsDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userAccountDto, articleCommentDtos, title, content, hashtag, createdAt, createdBy, modifiedAt, modifiedBy);
+        return Objects.hash(id, userAccountDto, articleCommentDtos, title, content, createdAt, createdBy, modifiedAt, modifiedBy);
     }
 
     @Override
@@ -136,7 +137,7 @@ public final class ArticleWithCommentsDto {
                 "articleCommentDtos=" + articleCommentDtos + ", " +
                 "title=" + title + ", " +
                 "content=" + content + ", " +
-                "hashtag=" + hashtag + ", " +
+//                "hashtag=" + hashtag + ", " +
                 "createdAt=" + createdAt + ", " +
                 "createdBy=" + createdBy + ", " +
                 "modifiedAt=" + modifiedAt + ", " +

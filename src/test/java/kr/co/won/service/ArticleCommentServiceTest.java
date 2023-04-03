@@ -40,7 +40,8 @@ class ArticleCommentServiceTest {
         // Given
         Long articleId = 1L;
 
-        ArticleDomain article = ArticleDomain.of(null,"title", "content", "hashTag");
+//        ArticleDomain article = ArticleDomain.of(null,"title", "content", "hashTag");
+        ArticleDomain article = ArticleDomain.of(null, "title", "content");
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
         // When
         List<ArticleCommentDomainDto> articleComments = articleCommentService.searchArticleComments(articleId);
@@ -53,7 +54,7 @@ class ArticleCommentServiceTest {
 
     @DisplayName(value = "댓글 정보를 입력하면, 댓글을 저장한다.")
     @Test
-    void givenCommentInfo_whenSaveArticleComments_thenReturn(){
+    void givenCommentInfo_whenSaveArticleComments_thenReturn() {
 
 
     }
