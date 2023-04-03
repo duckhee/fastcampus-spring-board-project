@@ -35,7 +35,8 @@ public class SecurityConfiguration {
                     // GET 에 대한 요청만 설정하는 것이다.
                     authorizationManagerRequestMatcherRegistry
                             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                            .mvcMatchers(HttpMethod.GET, "/", "/articles", "articles/search-hashtag")
+                            .requestMatchers("/api/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/", "/articles", "articles/search-hashtag")
                             .permitAll()
                             .anyRequest().authenticated();
                 })

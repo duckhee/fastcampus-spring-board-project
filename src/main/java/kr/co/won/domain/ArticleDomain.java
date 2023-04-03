@@ -9,7 +9,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -95,11 +95,11 @@ public class ArticleDomain extends AuditingFields implements Serializable {
         if (this == o) return true;
         if (!(o instanceof ArticleDomain articleDomain)) return false;
 
-        return id != null && id.equals(articleDomain.id);
+        return this.getId() != null && this.getId().equals(articleDomain.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(this.getId());
     }
 }

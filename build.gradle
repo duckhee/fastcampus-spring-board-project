@@ -31,16 +31,16 @@ dependencies {
     // 사용자 custom annotation config process
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     // security thymeleaf
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
     // querydsl setting spring boot management 가 querydsl 을 관리를 해주기 때문에 버전 정보를 입력을 하지 않아도 된다.
-    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     implementation 'com.querydsl:querydsl-core'
     implementation 'com.querydsl:querydsl-collections'
     /*dev setting */
     implementation 'org.springframework.boot:spring-boot-devtools'
     // database setting
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
     // querydsl JPAAnnotationProcessor 사용 지정
     annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
     // java.lang.NoClassDefFoundError(javax.annotation.Generated) 대응 코드
@@ -85,8 +85,8 @@ clean {
 }
 
 // Heroku setting
-jar{
+jar {
     manifest {
-        attributes("Main-Class":"kr.co.won.SpringProjectBoardApplication")
+        attributes("Main-Class": "kr.co.won.SpringProjectBoardApplication")
     }
 }
