@@ -33,7 +33,7 @@ dependencies {
     // security thymeleaf
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
     // querydsl setting spring boot management 가 querydsl 을 관리를 해주기 때문에 버전 정보를 입력을 하지 않아도 된다.
-    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    implementation "com.querydsl:querydsl-jpa:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
     implementation 'com.querydsl:querydsl-core'
     implementation 'com.querydsl:querydsl-collections'
     /*dev setting */
