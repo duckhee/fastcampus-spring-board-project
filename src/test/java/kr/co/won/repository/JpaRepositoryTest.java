@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Import;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -49,8 +50,8 @@ class JpaRepositoryTest {
         UserDomain savedUser = userRepository.save(sampleUser);
         // Given
         long previousCount = articleRepository.count();
-        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
-
+//        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
+        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content");
         // When
         ArticleDomain savedArticle = articleRepository.save(articleDomain);
         entityManager.flush();
@@ -73,7 +74,8 @@ class JpaRepositoryTest {
         UserDomain savedUser = userRepository.save(sampleUser);
         // Given
         long previousCount = articleRepository.count();
-        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
+//        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
+        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content");
 
         // When
         ArticleDomain savedArticle = articleRepository.save(articleDomain);
@@ -92,7 +94,8 @@ class JpaRepositoryTest {
         UserDomain savedUser = userRepository.save(sampleUser);
         // Given
         long previousCount = articleRepository.count();
-        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
+//        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content", "#spring");
+        ArticleDomain articleDomain = ArticleDomain.of(savedUser, "new article", "article content");
         ArticleDomain savedArticle = articleRepository.saveAndFlush(articleDomain);
         // 영속성 초기화
         entityManager.flush();
@@ -100,7 +103,7 @@ class JpaRepositoryTest {
         String updateHashCode = "#testing";
 
         // When
-        findArticle.setHashTag(updateHashCode);
+//        findArticle.setHashTag(updateHashCode);
         ArticleDomain updateArticle = articleRepository.saveAndFlush(findArticle);
         entityManager.flush();
 
@@ -113,7 +116,8 @@ class JpaRepositoryTest {
     void givenTestData_whenDelete_thenWorksFine() {
         // Given
         long previousCount = articleRepository.count();
-        ArticleDomain articleDomain = ArticleDomain.of(null, "new article", "article content", "#spring");
+//        ArticleDomain articleDomain = ArticleDomain.of(null, "new article", "article content", "#spring");
+        ArticleDomain articleDomain = ArticleDomain.of(null, "new article", "article content");
         ArticleDomain savedArticle = articleRepository.saveAndFlush(articleDomain);
 
         ArticleDomain findArticle = articleRepository.findById(savedArticle.getId()).orElseThrow(() -> new IllegalArgumentException());

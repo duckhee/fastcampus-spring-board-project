@@ -36,7 +36,7 @@ public interface ArticleRepository extends JpaRepository<ArticleDomain, Long>,
         // 검색에 제외를 하기 위한 함수 호출이다.
         bindings.excludeUnlistedProperties(true);
         // 검색을 허용할 properties 의 field 값을 입력을 해준다.
-        bindings.including(root.title, root.hashTag, root.createdAt, root.createdBy);
+        bindings.including(root.title,  root.createdAt, root.createdBy);
         // 검색을 실행할 때 어떻게 동작을 할지 정해 주는 것 like 키워드 조건에 대해서 작성이 가능하다.
 //        bindings.bind(root.title).first((path, value) -> path.eq(value));
 //        bindings.bind(root.title).first(SimpleExpression::eq);
@@ -44,7 +44,7 @@ public interface ArticleRepository extends JpaRepository<ArticleDomain, Long>,
 //        bindings.bind(root.title).first(StringExpression::likeIgnoreCase); // like `(value)` 형태로 쿼리가 생성된다.
         bindings.bind(root.title).first(StringExpression::containsIgnoreCase); // like `%(value)%` 형태로 쿼리가 생성된다.
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
-        bindings.bind(root.hashTag).first(StringExpression::containsIgnoreCase);
+//        bindings.bind(root.hashTag).first(StringExpression::containsIgnoreCase);
         // TODO
         // 날짜 형태의 검색 조건을 넣을 수 있는 방법 (시분초가 다 맞아야하므로 현재 요구 사항에 정확하게 맞지 않다.)
         bindings.bind(root.createdAt).first(DateTimeExpression::eq);

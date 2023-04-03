@@ -5,6 +5,7 @@ import kr.co.won.config.TestSecurityConfig;
 import kr.co.won.domain.constant.FormStatus;
 import kr.co.won.domain.type.SearchType;
 import kr.co.won.dto.ArticleWithCommentsDto;
+import kr.co.won.dto.HashtagDto;
 import kr.co.won.dto.UserAccountDto;
 import kr.co.won.service.ArticleService;
 import kr.co.won.service.PaginationService;
@@ -115,7 +116,6 @@ class ArticleControllerTest {
 
     @DisplayName(value = "[view] [GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
-
     void givenPagingAndSortingParams_whenSearchingArticlePages_thenReturnArticlePageNumbers() throws Exception {
         // given
         String sortName = "title";
@@ -149,7 +149,6 @@ class ArticleControllerTest {
     @WithMockUser
     @DisplayName("[view][GET] 새 게시글 작성 페이지")
     @Test
-
     void givenNothing_whenRequesting_thenReturnsNewArticlePage() throws Exception {
         // Given
 
@@ -165,7 +164,6 @@ class ArticleControllerTest {
     @DisplayName(value = "[VIEW][GET] article detail Tests")
     @Test
     @WithMockUser
-
     void boardDetailViewTests() throws Exception {
 
         // given
@@ -185,7 +183,8 @@ class ArticleControllerTest {
     }
 
     private ArticleWithCommentsDto createArticleWithCommentsDto() {
-        ArticleWithCommentsDto dummyArticle = ArticleWithCommentsDto.of(1L, createUserDto(), Set.of(), "testTitle", "content", "hashTag", LocalDateTime.now(), "won", LocalDateTime.now(), "won");
+//        ArticleWithCommentsDto dummyArticle = ArticleWithCommentsDto.of(1L, createUserDto(), Set.of(), "testTitle", "content", "hashTag", LocalDateTime.now(), "won", LocalDateTime.now(), "won");
+        ArticleWithCommentsDto dummyArticle = ArticleWithCommentsDto.of(1L, createUserDto(), Set.of(), "testTitle", "content", Set.of(HashtagDto.of("hashTag")), LocalDateTime.now(), "won", LocalDateTime.now(), "won");
         return dummyArticle;
     }
 

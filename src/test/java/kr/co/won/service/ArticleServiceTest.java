@@ -153,7 +153,8 @@ class ArticleServiceTest {
     @Test
     void givenArticleInfo_whenSavingArticle_thenSaveArticle() {
         // Given
-        ArticleDomainDto newArticle = ArticleDomainDto.of(null, "new Title", "new Content", "hashTag");
+//        ArticleDomainDto newArticle = ArticleDomainDto.of(null, "new Title", "new Content", "hashTag");
+        ArticleDomainDto newArticle = ArticleDomainDto.of(null, "new Title", "new Content");
 
         // mockito
         // mockito 의 return 값이 void 일경우 사용을 하는 것이 willDoNoting().given()
@@ -174,7 +175,8 @@ class ArticleServiceTest {
     void givenArticleInfo_whenModifyArticle_thenUpdateArticle() {
 
         // Given
-        ArticleDomainDto updateArticle = ArticleDomainDto.of(createUserAccountDto(), "new Title", "new Content", "hashTag");
+//        ArticleDomainDto updateArticle = ArticleDomainDto.of(createUserAccountDto(), "new Title", "new Content", "hashTag");
+        ArticleDomainDto updateArticle = ArticleDomainDto.of(createUserAccountDto(), "new Title", "new Content");
         // mockito
         given(articleRepository.save(any(ArticleDomain.class))).willReturn(null);
         // When
@@ -212,12 +214,8 @@ class ArticleServiceTest {
     }
 
     private ArticleDomain createArticle() {
-        ArticleDomain article = ArticleDomain.of(
-                createUserAccount(),
-                "title",
-                "content",
-                "#java"
-        );
+//        ArticleDomain article = ArticleDomain.of(createUserAccount(), "title", "content", "#java");
+        ArticleDomain article = ArticleDomain.of(createUserAccount(), "title", "content");
 //        ReflectionTestUtils.setField(article, "id", 1L);
 
         return article;
@@ -228,16 +226,17 @@ class ArticleServiceTest {
     }
 
     private ArticleDomainDto createArticleDto(String title, String content, String hashtag) {
-        return ArticleDomainDto.of(
-                1L,
-                createUserAccountDto(),
-                title,
-                content,
-                hashtag,
-                LocalDateTime.now(),
-                "Uno",
-                LocalDateTime.now(),
-                "Uno");
+//        return ArticleDomainDto.of(
+//                1L,
+//                createUserAccountDto(),
+//                title,
+//                content,
+//                hashtag,
+//                LocalDateTime.now(),
+//                "Uno",
+//                LocalDateTime.now(),
+//                "Uno");
+        return null;
     }
 
     private UserAccountDto createUserAccountDto() {

@@ -70,7 +70,7 @@ public class ArticleService {
                     article.setTitle(updateArticle.title());
                 if (updateArticle.content() != null || !updateArticle.content().isBlank())
                     article.setContent(updateArticle.content());
-                article.setHashTag(updateArticle.hashTag());
+//                article.setHashTag(updateArticle.hashTag());
             }
         } catch (EntityNotFoundException exception) {
             log.warn("게시글 업데이트 실패. 게시글을 수정하는데 필요한 정보를 찾을 수 없습니다. - dto : {} {}", updateArticle, exception.getLocalizedMessage());
