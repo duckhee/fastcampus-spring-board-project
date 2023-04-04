@@ -59,7 +59,7 @@ public interface ArticleRepository extends JpaRepository<ArticleDomain, Long>,
 
     Page<ArticleDomain> findByUserAccount_NickNameContaining(String nickName, Pageable pageable);
 
-    Page<ArticleDomain> findByHashTag(String hashTag, Pageable pageable);
+//    Page<ArticleDomain> findByHashTag(String hashTag, Pageable pageable);
 
     void deleteByIdAndUserAccountUserId(Long articleId, String userId);
 

@@ -1,20 +1,20 @@
 -- 테스트 계정
 -- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
-insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
+insert into tbl_user (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
                           modified_by)
 values ('uno', '{noop}asdf1234', 'Uno', 'uno@mail.com', 'I am Uno.', now(), 'uno', now(), 'uno')
 ;
-insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
+insert into tbl_user (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
                           modified_by)
 values ('uno2', '{noop}asdf1234', 'Uno2', 'uno2@mail.com', 'I am Uno2.', now(), 'uno2', now(), 'uno2')
 ;
-insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
+insert into tbl_user (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at,
                           modified_by)
 values ('uno3', '{noop}asdf1234', 'Uno3', 'uno3@mail.com', 'I am Uno3.', now(), 'uno3', now(), 'uno3')
 ;
 
 -- 123 게시글
-insert into article (user_id, title, content, created_by, modified_by, created_at, modified_at)
+insert into tbl_article (user_id, title, content, created_by, modified_by, created_at, modified_at)
 values ('uno2', 'Quisque ut erat.', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
 
 Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
@@ -620,7 +620,7 @@ Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odi
 
 
 -- 300 댓글
-insert into article_comment (article_id, user_id, parent_comment_id, content, created_at, modified_at, created_by,
+insert into tbl_article_comment (article_id, user_id, parent_comment_id, content, created_at, modified_at, created_by,
                              modified_by)
 values (49, 'uno', null,
         'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.',
@@ -1431,7 +1431,7 @@ values (49, 'uno', 1, '퍼가요~', '2021-03-02 22:40:04', '2021-04-27 15:38:09'
        (49, 'uno', 1, '또또 퍼가요~', '2021-03-05 22:40:04', '2021-04-27 15:38:09', 'Uno', 'Uno')
 ;
 
-insert into hashtag (hashtag_name, created_at, modified_at, created_by, modified_by)
+insert into tbl_hash_tag (hashtag_name, created_at, modified_at, created_by, modified_by)
 values ('blue', now(), now(), 'uno', 'uno'),
        ('crimson', now(), now(), 'uno', 'uno'),
        ('fuscia', now(), now(), 'uno', 'uno'),

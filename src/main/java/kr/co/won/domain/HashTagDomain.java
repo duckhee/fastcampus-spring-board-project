@@ -13,6 +13,7 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(
+        name = "tbl_hash_tag",
         indexes = {
                 @Index(columnList = "hashtag_name", unique = true),
                 @Index(columnList = "created_at"),

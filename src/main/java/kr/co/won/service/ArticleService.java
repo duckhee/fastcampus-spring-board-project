@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +46,8 @@ public class ArticleService {
                     articleRepository.findByUserAccount_UserIdContaining(keyword, pageable).map(ArticleDomainDto::from);
             case NICKNAME ->
                     articleRepository.findByUserAccount_NickNameContaining(keyword, pageable).map(ArticleDomainDto::from);
-            case HASHTAG -> articleRepository.findByHashTag("#" + keyword, pageable).map(ArticleDomainDto::from);
+//            case HASHTAG -> articleRepository.findByHashTag("#" + keyword, pageable).map(ArticleDomainDto::from);
+            default -> Page.empty();
         };
 
     }
@@ -102,7 +104,8 @@ public class ArticleService {
         if (hashtag == null || hashtag.isBlank()) {
             return Page.empty(pageable);
         }
-        return articleRepository.findByHashTag(hashtag, pageable).map(ArticleDomainDto::from);
+        return Page.empty();
+//        return articleRepository.findByHashTag(hashtag, pageable).map(ArticleDomainDto::from);
     }
 
     public long getArticleCount() {

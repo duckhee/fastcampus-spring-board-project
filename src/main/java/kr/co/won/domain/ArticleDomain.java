@@ -22,7 +22,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Table(name = "tbl_article", indexes = {
         @Index(columnList = "title"), // columnList 를 사용할때 데이터 베이스에 저장되는 이름을 사용해야한다.
-        @Index(columnList = "hash_tag"),
+//        @Index(columnList = "hash_tag"),
         @Index(columnList = "created_at"),
         @Index(columnList = "created_by")
 })
