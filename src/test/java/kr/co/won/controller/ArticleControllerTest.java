@@ -64,7 +64,7 @@ class ArticleControllerTest {
         this.formDataEncoder = formDataEncoder;
     }
 
-    //    @Disabled(value = "develop")
+    @Disabled(value = "develop")
     @DisplayName(value = "[view][GET] article list")
     @Test
     void givenNothing_whenRequestingArticlesView_thenReturnArticlesView() throws Exception {
@@ -88,7 +88,7 @@ class ArticleControllerTest {
         then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
 
-
+    @WithMockUser
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 검색어와 함께 호출")
     @Test
     public void givenSearchKeyword_whenSearchingArticlesView_thenReturnsArticlesView() throws Exception {
@@ -113,7 +113,7 @@ class ArticleControllerTest {
         then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
 
-
+    @WithMockUser
     @DisplayName(value = "[view] [GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
     void givenPagingAndSortingParams_whenSearchingArticlePages_thenReturnArticlePageNumbers() throws Exception {

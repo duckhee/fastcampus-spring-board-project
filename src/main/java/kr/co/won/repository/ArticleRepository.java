@@ -16,7 +16,7 @@ import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
-import jakarta.persistence.QueryHint;
+import javax.persistence.QueryHint;
 import java.nio.channels.FileChannel;
 import java.util.List;
 

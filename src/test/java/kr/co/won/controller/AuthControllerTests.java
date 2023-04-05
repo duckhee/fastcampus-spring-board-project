@@ -1,6 +1,7 @@
 package kr.co.won.controller;
 
 import kr.co.won.config.SecurityConfiguration;
+import kr.co.won.config.TestSecurityConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DisplayName(value = "View Controller - auth Tests")
 @WebMvcTest(Void.class)
-@Import(SecurityConfiguration.class)
+@Import(TestSecurityConfig.class)
 public class AuthControllerTests {
 
     private final MockMvc mockMvc;
