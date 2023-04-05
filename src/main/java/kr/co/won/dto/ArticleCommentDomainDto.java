@@ -11,20 +11,24 @@ public record ArticleCommentDomainDto(
         Long id,
         Long articleId,
         UserAccountDto userAccountDto,
+        Long parentCommentId,
         String content,
         LocalDateTime createdAt,
         String createdBy,
         LocalDateTime modifiedAt,
         String modifiedBy
-) implements Serializable {
-
+) {
 
     public static ArticleCommentDomainDto of(Long articleId, UserAccountDto userAccountDto, String content) {
-        return new ArticleCommentDomainDto(null, articleId, userAccountDto, content, null, null, null, null);
+        return ArticleCommentDomainDto.of(articleId, userAccountDto, null, content);
     }
 
-    public static ArticleCommentDomainDto of(Long id, Long articleId, UserAccountDto userAccountDto, String content, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
-        return new ArticleCommentDomainDto(id, articleId, userAccountDto, content, createdAt, createdBy, modifiedAt, modifiedBy);
+    public static ArticleCommentDomainDto of(Long articleId, UserAccountDto userAccountDto, Long parentCommentId, String content) {
+        return ArticleCommentDomainDto.of(null, articleId, userAccountDto, parentCommentId, content, null, null, null, null);
+    }
+
+    public static ArticleCommentDomainDto of(Long id, Long articleId, UserAccountDto userAccountDto, Long parentCommentId, String content, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
+        return new ArticleCommentDomainDto(id, articleId, userAccountDto, parentCommentId, content, createdAt, createdBy, modifiedAt, modifiedBy);
     }
 
     public static ArticleCommentDomainDto from(ArticleCommentDomain entity) {
@@ -32,6 +36,7 @@ public record ArticleCommentDomainDto(
                 entity.getId(),
                 entity.getArticle().getId(),
                 UserAccountDto.from(entity.getUserAccount()),
+                entity.getParentCommentId(),
                 entity.getContent(),
                 entity.getCreatedAt(),
                 entity.getCreatedBy(),

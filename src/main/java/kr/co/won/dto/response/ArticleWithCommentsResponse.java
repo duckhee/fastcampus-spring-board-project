@@ -6,9 +6,7 @@ import kr.co.won.dto.ArticleWithCommentsDto;
 import kr.co.won.dto.HashtagDto;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -46,24 +44,24 @@ public record ArticleWithCommentsResponse(
                 dto.userAccountDto().email(),
                 nickname,
                 dto.userAccountDto().userId(),
-                null
-//                organizeChildComments(dto.articleCommentDtos())
+//                null
+                organizeChildComments(dto.articleCommentDtos())
         );
     }
 
-/*
     private static Set<ArticleCommentResponse> organizeChildComments(Set<ArticleCommentDomainDto> dtos) {
+        // atricle comment 의 id 로 접근이 가능하도록 하기 위해서 맵 형태로 값을 만들어준다.
         Map<Long, ArticleCommentResponse> map = dtos.stream()
                 .map(ArticleCommentResponse::from)
                 .collect(Collectors.toMap(ArticleCommentResponse::id, Function.identity()));
-
+        // 순회릐르 하면서 자식 comment 일 경우 부모의 comment 에 값의 set 에 넣어준다.
         map.values().stream()
                 .filter(ArticleCommentResponse::hasParentComment)
                 .forEach(comment -> {
                     ArticleCommentResponse parentComment = map.get(comment.parentCommentId());
                     parentComment.childComments().add(comment);
                 });
-
+        // 댓글을 정렬하기 위해서 사용한다.
         return map.values().stream()
                 .filter(comment -> !comment.hasParentComment())
                 .collect(Collectors.toCollection(() ->
@@ -74,5 +72,4 @@ public record ArticleWithCommentsResponse(
                         )
                 ));
     }
-    */
 }

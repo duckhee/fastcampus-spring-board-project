@@ -4,6 +4,9 @@ package kr.co.won.dto.response;
 import kr.co.won.dto.ArticleCommentDomainDto;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
 
 public record ArticleCommentResponse(
         Long id,
@@ -11,11 +14,17 @@ public record ArticleCommentResponse(
         LocalDateTime createdAt,
         String email,
         String nickname,
-        String userId
+        String userId,
+        Long parentCommentId,
+        Set<ArticleCommentResponse> childComments
 ) {
 
-    public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt, String email, String nickname, String userId) {
-        return new ArticleCommentResponse(id, content, createdAt, email, nickname, userId);
+    public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt, String email, String nickname, String userId, Long parentCommentId) {
+        // child comment 가 정렬된 상태여야하므로 비교하여 정렬을 해주기 위한 Comparator 를 사용한다.
+        Comparator<ArticleCommentResponse> childCommentComparator = Comparator.comparing(ArticleCommentResponse::createdAt)
+                .thenComparingLong(ArticleCommentResponse::id);
+        // 비어 있는 Set 이면서 정렬된 형태가 들어갈 수 있으므로, TreeSet 을 사용한다.
+        return new ArticleCommentResponse(id, content, createdAt, email, nickname, userId, parentCommentId, new TreeSet<>(childCommentComparator));
     }
 
     public static ArticleCommentResponse from(ArticleCommentDomainDto dto) {
@@ -24,14 +33,19 @@ public record ArticleCommentResponse(
             nickname = dto.userAccountDto().userId();
         }
 
-        return new ArticleCommentResponse(
+        return ArticleCommentResponse.of(
                 dto.id(),
                 dto.content(),
                 dto.createdAt(),
                 dto.userAccountDto().email(),
                 nickname,
-                dto.userAccountDto().userId()
+                dto.userAccountDto().userId(),
+                dto.parentCommentId()
         );
+    }
+
+    public boolean hasParentComment() {
+        return parentCommentId != null;
     }
 
 }
