@@ -150,7 +150,7 @@ public class ArticleService {
 
 
     public List<String> getHashTags() {
-        return hashtagRepository.findAllByHashTagName();
+        return hashtagRepository.findAllHashtagNames();
     }
 
 
