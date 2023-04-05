@@ -1,12 +1,14 @@
 package kr.co.won.service;
 
 import kr.co.won.domain.ArticleDomain;
+import kr.co.won.domain.HashTagDomain;
 import kr.co.won.domain.UserDomain;
 import kr.co.won.domain.type.SearchType;
 import kr.co.won.dto.ArticleDomainDto;
 import kr.co.won.dto.ArticleUpdateDto;
 import kr.co.won.dto.UserAccountDto;
 import kr.co.won.repository.ArticleRepository;
+import kr.co.won.repository.HashtagRepository;
 import kr.co.won.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -21,8 +23,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,6 +45,11 @@ class ArticleServiceTest {
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private HashtagService hashtagService;
+
+    @Mock
+    private HashtagRepository hashtagRepository;
 
     /**
      * 각 게시글 페이지로 이동
@@ -63,7 +72,7 @@ class ArticleServiceTest {
     }
 
 
-    @Disabled
+
     @DisplayName("검색어 없이 게시글을 해시태그 검색하면, 빈 페이지를 반환한다.")
     @Test
     void givenNoSearchParameters_whenSearchingArticlesViaHashtag_thenReturnsEmptyPage() {
@@ -80,7 +89,7 @@ class ArticleServiceTest {
     }
 
 
-    @Disabled
+
     @DisplayName("게시글을 해시태그 검색하면, 게시글 페이지를 반환한다.")
     @Test
     void givenHashtag_whenSearchingArticlesViaHashtag_thenReturnsArticlesPage() {
@@ -115,7 +124,7 @@ class ArticleServiceTest {
     }
 
 
-    @Disabled
+
     @DisplayName("해시태그를 조회하면, 유니크 해시태그 리스트를 반환한다")
     @Test
     void givenNothing_whenCalling_thenReturnsHashtags() {
@@ -148,7 +157,7 @@ class ArticleServiceTest {
         then(articleRepository).should().findById(any(Long.class));
     }
 
-    @Disabled
+
     @DisplayName(value = "게시글 정보를 입력하면, 게시글을 작성한다.")
     @Test
     void givenArticleInfo_whenSavingArticle_thenSaveArticle() {
@@ -169,7 +178,7 @@ class ArticleServiceTest {
         then(articleRepository).should().save(any(ArticleDomain.class));
     }
 
-    @Disabled
+
     @DisplayName(value = "게시글 ID 와 수정 정보를 입력하면, 게시글을 수정한다.")
     @Test
     void givenArticleInfo_whenModifyArticle_thenUpdateArticle() {
@@ -177,8 +186,11 @@ class ArticleServiceTest {
         // Given
 //        ArticleDomainDto updateArticle = ArticleDomainDto.of(createUserAccountDto(), "new Title", "new Content", "hashTag");
         ArticleDomainDto updateArticle = ArticleDomainDto.of(createUserAccountDto(), "new Title", "new Content");
+        Set<String> expectedHashtagNames = Set.of("springboot");
+        Set<HashTagDomain> expectedHashtags = new HashSet<>();
         // mockito
         given(articleRepository.save(any(ArticleDomain.class))).willReturn(null);
+
         // When
         sut.updateArticle(1L, updateArticle);
         // Then
@@ -186,21 +198,27 @@ class ArticleServiceTest {
         then(articleRepository).should().save(any(ArticleDomain.class));
     }
 
-    @Disabled
     @DisplayName(value = "게시글을 삭제한다.")
     @Test
     void givenArticleId_whenDeleteArticle_thenDeleteArticle() {
         // given
         Long articleId = 1L;
-
+        String userId = "uno";
+        given(articleRepository.getReferenceById(articleId)).willReturn(createArticle());
+        willDoNothing().given(articleRepository).flush();
+//        willDoNothing().given(hashtagService).deleteHashtagWithoutArticles(any());
         // mockito
-        willDoNothing().given(articleRepository).deleteByIdAndUserAccountUserId(articleId, "uno");
+        willDoNothing().given(articleRepository).deleteByIdAndUserAccountUserId(articleId, userId);
 
         // when
         sut.deleteArticle(articleId, "uno");
 
         // then
-        then(articleRepository).should().delete(any(ArticleDomain.class));
+//        then(articleRepository).should().delete(any(ArticleDomain.class));
+        then(articleRepository).should().getReferenceById(articleId);
+//        then(articleRepository).should().deleteByIdAndUserAccount_UserId(articleId, userId);
+        then(articleRepository).should(times(2)).flush();
+//        then(hashtagService).should(times(2)).deleteHashtagWithoutArticles(any());
     }
 
     private UserDomain createUserAccount() {
@@ -252,4 +270,5 @@ class ArticleServiceTest {
                 "uno"
         );
     }
+
 }

@@ -7,11 +7,14 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RepositoryRestResource
 public interface HashtagRepository extends JpaRepository<HashTagDomain, Long>, QuerydslPredicateExecutor<HashTagDomain> {
 
     Optional<HashTagDomain> findByHashTagName(String name);
 
-    List <HashTagDomain> findByHashTagNameIn(List<String> names);
+    List <HashTagDomain> findByHashTagNameIn(Set<String> names);
+
+    List<String> findAllByHashTagName();
 }
