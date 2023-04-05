@@ -1,19 +1,14 @@
 package kr.co.won.domain;
 
-import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Getter
@@ -30,20 +25,30 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
     protected ArticleCommentDomain() {
     }
 
-    private ArticleCommentDomain(ArticleDomain article, UserDomain userAccount, String content) {
+    private ArticleCommentDomain(ArticleDomain article, UserDomain userAccount, Long parentCommentId, String content) {
         this.article = article;
         this.userAccount = userAccount;
         this.content = content;
+        this.parentCommentId = parentCommentId;
     }
 
     public static ArticleCommentDomain of(ArticleDomain article, UserDomain userAccount, String content) {
-        return new ArticleCommentDomain(article, userAccount, content);
+        return new ArticleCommentDomain(article, userAccount, null, content);
     }
 
+    public void addChildComment(ArticleCommentDomain articleCommentDomain) {
+        articleCommentDomain.setParentCommentId(this.getId());
+        this.getChildComments().add(articleCommentDomain);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
+    // 단방향으로 연결하기
+    @Column(updatable = false)
+    private Long parentCommentId;
 
     @Setter
     @ManyToOne(optional = false)
@@ -58,6 +63,13 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
     @Setter
     @Column(nullable = false, length = 500)
     private String content; // 댓글 본문
+
+
+    @ToString.Exclude
+    // cascade = CascadeType.ALL -> 부모 댓글이 삭제 시 자식 댓글도 삭제하도록 설정
+    @OneToMany(mappedBy = "parentCommentId", cascade = CascadeType.ALL)
+    @OrderBy("createdAt ASC")
+    private Set<ArticleCommentDomain> childComments = new LinkedHashSet<>();
 
     /*
         @CreatedDate
