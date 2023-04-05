@@ -41,6 +41,7 @@ public class ArticleCommentDomain extends AuditingFields implements Serializable
         this.getChildComments().add(articleCommentDomain);
     }
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
