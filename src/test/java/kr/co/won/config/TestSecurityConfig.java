@@ -31,6 +31,7 @@ public class TestSecurityConfig {
                 .willReturn(Optional.of(createUserAccountDto()));
         given(userAccountService.saveUser(anyString(), anyString(), anyString(), anyString(), anyString()))
                 .willReturn(createUserAccountDto());
+        given(userAccountRepository.findById(anyString())).willReturn(Optional.of(createUserDomain()));
     }
 
     private UserAccountDto createUserAccountDto() {
@@ -41,6 +42,10 @@ public class TestSecurityConfig {
                 "uno-test",
                 "test memo"
         );
+    }
+
+    private UserDomain createUserDomain() {
+        return UserDomain.of("unoTest", "pw", "uno-test@email.com", "uno-test", "test memo");
     }
 
 }
