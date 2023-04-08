@@ -139,8 +139,8 @@ public class ArticleService {
         if (hashtag == null || hashtag.isBlank()) {
             return Page.empty(pageable);
         }
-        articleRepository.findByHashtagNames(List.of(hashtag), pageable);
-        return Page.empty();
+        return articleRepository.findByHashtagNames(List.of(hashtag), pageable).map(ArticleDomainDto::from);
+
 //        return articleRepository.findByHashTag(hashtag, pageable).map(ArticleDomainDto::from);
     }
 
