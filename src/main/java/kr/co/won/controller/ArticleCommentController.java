@@ -19,6 +19,7 @@ public class ArticleCommentController {
 
     private final ArticleCommentService articleCommentService;
 
+    
 
     @PostMapping(path = "/new")
     public String postNewArticleComment(@AuthenticationPrincipal BoardPrincipal boardPrincipal, ArticleCommentRequest articleCommentRequest) {
