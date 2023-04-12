@@ -11,6 +11,23 @@ management:
 #    org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          kakao:
+            authorizationUri: https://kauth.kakao.com/oauth/authorize
+            tokenUri: https://kauth.kakao.com/oauth/token
+            userInfoUri: https://kapi.kakao.com/v2/user/me
+            userNameAttribute: id
+        registration:
+          kakao:
+            clientId: ${KAKAO_OAUTH_CLIENT_ID}
+            clientSecret: ${KAKAO_OAUTH_SECRET_KEY}
+            clientAuthenticationMethod: POST
+            authorizationGrantType: authorization_code
+            redirectUri: "{baseUrl}/login/oauth2/code/kakao"
+
   sql:
     init:
       mode: ALWAYS
@@ -19,20 +36,19 @@ spring:
       base-path: /api # spring data rest setting path
       detection-strategy: annotated
   datasource:
-        driver-class-name: org.h2.Driver
-        url: jdbc:h2:mem:testDB
-        username: sa
-        password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testDB
+    username: sa
+    password:
     #    url: jdbc:postgresql://localhost:5432/board
     #    username: study
     #    password: 1234
     #    driver-class-name:
-#    url: jdbc:mysql://localhost:3336/fastCampusBoardProject?rewriteBatchedStatements=true&profileSQL=true&logger=Slf4JLogger&maxQuerySizeToLong=999999&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-#    username: study
-#    password: 1234
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    url: jdbc:mysql://localhost:3336/fastCampusBoardProject?rewriteBatchedStatements=true&profileSQL=true&logger=Slf4JLogger&maxQuerySizeToLong=999999&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+  #    username: study
+  #    password: 1234
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-
     open-in-view: false
     hibernate:
       ddl-auto: create

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(name = "tbl_user", indexes = {
         @Index(columnList = "email", unique = true),
         @Index(columnList = "created_at"),
@@ -50,8 +50,22 @@ public class UserDomain extends AuditingFields implements Serializable {
         this.memo = memo;
     }
 
+    private UserDomain(String userId, String userPassword, String email, String nickName, String memo, String createdBy) {
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.email = email;
+        this.nickName = nickName;
+        this.memo = memo;
+        this.createdBy = createdBy;
+        this.updatedBy = createdBy;
+    }
+
     public static UserDomain of(String userId, String userPassword, String email, String nickName, String memo) {
         return new UserDomain(userId, userPassword, email, nickName, memo);
+    }
+
+    public static UserDomain of(String userId, String userPassword, String email, String nickName, String memo, String createdBy) {
+        return new UserDomain(userId, userPassword, email, nickName, memo, createdBy);
     }
 
     @Override

@@ -42,16 +42,15 @@ dependencies {
     // database setting
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 //    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
-
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
     // querydsl JPAAnnotationProcessor 사용 지정
-    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
     // java.lang.NoClassDefFoundError(javax.annotation.Generated) 대응 코드
-    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
     // java.lang.NoClassDefFoundError(javax.annotation.Entity) 대응 코드
-
-
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
     // 여기까지 querydsl setting
+    // OAuth2.0 client dependency add
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
