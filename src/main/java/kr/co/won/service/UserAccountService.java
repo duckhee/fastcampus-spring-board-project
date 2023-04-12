@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserAccountService {
 
@@ -23,7 +24,7 @@ public class UserAccountService {
 
     public UserAccountDto saveUser(String username, String password, String email, String nickname, String memo) {
         return UserAccountDto.from(
-                userAccountRepository.save(UserDomain.of(username, password, email, nickname, memo))
+                userAccountRepository.save(UserDomain.of(username, password, email, nickname, memo, username))
         );
     }
 
