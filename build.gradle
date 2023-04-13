@@ -18,6 +18,11 @@ repositories {
     mavenCentral()
 }
 
+// vault configuration 을 위한 확장 설정
+ext {
+    set('springCloudVersion', "2021.0.5")
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -42,7 +47,8 @@ dependencies {
     // database setting
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 //    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+//    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jpa"
     // querydsl JPAAnnotationProcessor 사용 지정
     // java.lang.NoClassDefFoundError(javax.annotation.Generated) 대응 코드
     annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
@@ -51,6 +57,8 @@ dependencies {
     // 여기까지 querydsl setting
     // OAuth2.0 client dependency add
     implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+    // vault configuration implementation
+    implementation('org.springframework.cloud:spring-cloud-starter-vault-config')
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
@@ -61,8 +69,13 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    // vault configuration
 }
-
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
 tasks.named('test') {
     useJUnitPlatform()
 }
