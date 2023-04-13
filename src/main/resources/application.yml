@@ -11,6 +11,15 @@ management:
 #    org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 spring:
+  application:
+    name: fastcampus-board # vault 의 이름
+  cloud:
+    vault:
+      scheme: http
+      authentication: TOKEN
+      token: ${VAULT_TOKEN}
+  config:
+    import: vault:// 
   security:
     oauth2:
       client:
@@ -36,14 +45,14 @@ spring:
       base-path: /api # spring data rest setting path
       detection-strategy: annotated
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testDB
-    username: sa
-    password:
-    #    url: jdbc:postgresql://localhost:5432/board
-    #    username: study
-    #    password: 1234
-    #    driver-class-name:
+    #    driver-class-name: org.h2.Driver
+    #    url: jdbc:h2:mem:testDB
+    #    username: sa
+    #    password:
+    url: ${LOCAL_DB_URL}
+    username: ${LOCAL_DB_USERNAME}
+    password: ${LOCAL_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
   #    url: jdbc:mysql://localhost:3336/fastCampusBoardProject?rewriteBatchedStatements=true&profileSQL=true&logger=Slf4JLogger&maxQuerySizeToLong=999999&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
   #    username: study
   #    password: 1234
