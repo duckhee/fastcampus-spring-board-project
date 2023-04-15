@@ -54,8 +54,9 @@ public record ArticleWithCommentsResponse(
         Map<Long, ArticleCommentResponse> map = dtos.stream()
                 .map(ArticleCommentResponse::from)
                 .collect(Collectors.toMap(ArticleCommentResponse::id, Function.identity()));
-        // 순회릐르 하면서 자식 comment 일 경우 부모의 comment 에 값의 set 에 넣어준다.
+        // 순회를 하면서 자식 comment 일 경우 부모의 comment 에 값의 set 에 넣어준다.
         map.values().stream()
+                // 부모 값이 있는 대댓글의 값만 가져오기 위해서 필터로 처리를 해준다.
                 .filter(ArticleCommentResponse::hasParentComment)
                 .forEach(comment -> {
                     ArticleCommentResponse parentComment = map.get(comment.parentCommentId());
