@@ -24,6 +24,10 @@ ext {
 }
 
 dependencies {
+    // swagger UI dependency add
+    implementation 'org.springdoc:springdoc-openai-ui:1.6.12'
+//    implementation 'org.springdoc:springdoc-openai-data-re st:1.6.12'
+    implementation 'org.springdoc:springdoc-openai-javadoc:1.6.12'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
@@ -67,6 +71,8 @@ dependencies {
     //    runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
+    // swagger javdoc
+    annotationProcessor 'com.github.therapi:terhapi-runtime-javadoc-scribe0.15.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     // vault configuration
