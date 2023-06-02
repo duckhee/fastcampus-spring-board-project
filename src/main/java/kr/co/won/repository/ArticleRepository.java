@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import kr.co.won.domain.ArticleDomain;
 import kr.co.won.domain.QArticleDomain;
+import kr.co.won.domain.projection.ArticleProjection;
 import kr.co.won.repository.querydsl.ArticleRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,7 @@ import java.nio.channels.FileChannel;
 import java.util.List;
 
 @Repository
-@RepositoryRestResource // 자동으로 REST API 를 만들어주는 annotation
+@RepositoryRestResource(excerptProjection = ArticleProjection.class) // 자동으로 REST API 를 만들어주는 annotation excerptProjection 는
 public interface ArticleRepository extends JpaRepository<ArticleDomain, Long>,
         QuerydslPredicateExecutor<ArticleDomain>, // 기본 검색 기능이 가능하게 해주는 것이다.
         QuerydslBinderCustomizer<QArticleDomain>, // 원하는 형태의 검색을 위해서 추가하는 것이다.
