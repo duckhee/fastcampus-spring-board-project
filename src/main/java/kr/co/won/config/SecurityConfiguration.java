@@ -59,7 +59,8 @@ public class SecurityConfiguration {
                     oAuth.userInfoEndpoint(userInfo -> {
                         userInfo.userService(oAuth2UserService);
                     });
-                });
+                })
+                .csrf(csrf->csrf.ignoringAntMatchers("/api/**")); // 특정 경로에 대해서 csrf 토큰을 제거하기 위한 설정
 
 //                .logoutSuccessUrl("/");
         return httpSecurity.build();
